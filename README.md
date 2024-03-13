@@ -5,11 +5,10 @@
 
 This GitHub repository contains the following folders:
 ```
-└─ analysis/: directory containing code used for data analysis
 └─ data/: directory containing source data to reproduce figures
-└─ germline_epitope_prediction/: directory containing pipeline to predict germline epitopes
 └─ figures/: directory containing R and other code to reproduce figures
 └─ supplementary_figures/: directory containing R and other code to reproduce supplementary figures
+└─ supplementary_tables/: directory containing R and other code to reproduce supplementary tables
 ```
 
 ## :white_check_mark: Citation
