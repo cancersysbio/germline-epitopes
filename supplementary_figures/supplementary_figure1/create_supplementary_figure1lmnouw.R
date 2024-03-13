@@ -150,3 +150,38 @@ create.boxplot(
                 height = 8,
                 resolution = 300
                 ) 
+
+### CREATE SUPPLEMENTARY FIGURE 1W ################################################################
+# create plot_data
+plot_data <- rna_tumor[rna_tumor$id %in% c('FOXC1','MIA','MELK'),]
+rownames(plot_data) <- plot_data$id
+plot_data <- as.data.frame(t(plot_data[,-1]))
+plot_data$sample <- substr(rownames(plot_data), 1, 12)
+plot_data <- merge(plot_data, tcga[,c('sample','Triple.Negative.Status')], by = 'sample')
+plot_data$FOXC1 <- as.numeric(as.character(plot_data$FOXC1))
+plot_data$MIA <- as.numeric(as.character(plot_data$MIA))
+plot_data$MELK <- as.numeric(as.character(plot_data$MELK))
+
+# reformat plot data
+plot_data <- gather(
+        plot_data[,c('sample','Triple.Negative.Status','FOXC1','MIA','MELK')],
+        value = 'mrna',
+        key = 'gene',
+        -Triple.Negative.Status,
+        -sample
+        )
+
+plot_data$logmrna <- log10(plot_data$mrna)
+create.boxplot(
+        logmrna ~ Triple.Negative.Status | gene,
+        data = plot_data[which(plot_data$gene %in% c('FOXC1','MELK','MIA') & plot_data$Triple.Negative.Status != 'N/A'),],
+        add.stripplot = TRUE,
+        xlab.label = 'Triple Negative Status',
+        ylab.label = 'mRNA Abundance',
+        yat = seq(0,6,2),
+        ylimits = c(0,6),
+        yaxis.lab = c(expression(0), expression(10^2), expression(10^4), expression(10^6)),
+        yaxis.cex = 1.3,
+        filename = paste0(date, '_genes_rna_tnbc_boxplot.pdf'),
+        resolution = 300
+        )
