@@ -1,0 +1,6 @@
+subtype	coef	l95	u95	num	cohort
+ihc_subtype	0.073	-0.07	0.214	357	GEL
+ihc_erneg_subtype	-0.211	-0.66	0.204	37	GEL
+ihc_erpos_subtype	0.134	-0.119	0.382	99	GEL
+cna_subtype	-0.014	-0.209	0.178	180	GEL
+cna_erneg_subtype	-0.427	-0.98	0.062	29	GEL
