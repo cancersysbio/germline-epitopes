@@ -121,14 +121,20 @@ create_maf_scatterplot(mafs = dmafs, filename = paste0(date, '_gnomad_dcis_scatt
     xlab.label = 'DCIS')
 
 #### SUPPLEMENTARY FIGURE 2E ######################################################################
-# read in tcga hla frequencies 
+# read in tcga icgc frequencies 
 icgc_freq <- read.delim('icgc_hla_frequencies.txt', as.is = TRUE)
 # create scatterplot
 create_hla_scatterplot(icgc_freq, filename = paste0(date, '_icgc_hla_frequencies_scatterplot.png'))
 
 
 #### SUPPLEMENTARY FIGURE 2F ######################################################################
-# read in tcga hla frequencies 
+# read in metabric hla frequencies 
 metabric_freq <- read.delim('metabric_hla_frequencies.txt', as.is = TRUE)
 # create scatterplot
 create_hla_scatterplot(metabric_freq, filename = paste0(date, '_metabric_hla_frequencies_scatterplot.png'))
+
+#### SUPPLEMENTARY FIGURE 2K ######################################################################
+# read in dcis hla frequencies 
+dcis_freq <- read.delim('dcis_hla_frequencies.txt', as.is = TRUE)
+# create scatterplot
+create_hla_scatterplot(dcis_freq, filename = paste0(date, '_dcis_hla_frequencies_scatterplot.png'))
