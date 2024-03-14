@@ -6,72 +6,6 @@ library(BoutrosLab.plotting.general)
 library(metafor)
 
 date <- Sys.Date()
-
-### OBTAIN COMMAND LINE ARGUMENTS #################################################################
-parser <- ArgumentParser();
-
-parser$add_argument('-i', '--idir', type = 'character', help = 'icgc directory');
-parser$add_argument('-m', '--mdir', type = 'character', help = 'metabric directory');
-
-args <- parser$parse_args();
-
-### GET ICGC HLAs #################################################################################
-get_icgc_hlas <- function(samples, basedir) {
-	# read in hlas 
-	hlas <- do.call(rbind, sapply(
-		samples,
-		function(id) {
-			hlafile <- file.path(basedir, 'ERBB2', id, 'HLA.txt')
-			if (file.exists(hlafile)) {
-				tmp <- read.delim(
-					hlafile,
-					header = FALSE,
-					as.is = TRUE
-					)
-				tmp <- unique(tmp$V1)
-				counts <- table(factor(substr(tmp, 1, 1), levels = c('A','B','C')))
-				data.frame(
-					sample = id,
-					hla = tmp
-					)
-				}
-			},
-		simplify = FALSE
-		))
-	return(hlas)
-}
-
-### GET METABRIC HLAs #############################################################################
-get_metabric_hlas <- function(samples, basedir) {
-	# read in hlas 
-	metabric_hlas <- do.call(rbind, sapply(
-		samples$V1,
-		function(id) {
-			tmp <- read.delim(
-				file.path(basedir, 'ERBB2', id, 'HLA.txt'),
-				header = FALSE,
-				as.is = TRUE
-				)
-			tmp <- unique(tmp$V1)
-			counts <- table(factor(substr(tmp, 1, 1), levels = c('A','B','C')))
-			data.frame(
-				sample = id,
-				hla = tmp
-				)
-			},
-		simplify = FALSE
-		))
-	# only keep alleles with 80% imputation accuracy
-	alleles <- read.delim(
-	        'tcga_cookhla_hla_alleles_imputation_accuracy.txt',
-	        as.is = TRUE
-	        )
-	alleles <- alleles[alleles$accuracy > 0.8,]
-	metabric_hlas <- metabric_hlas[metabric_hlas$hla %in% alleles$hla,]
-	return(metabric_hlas)
-}
-
-
 ### COUNT NUMBER OF BINDING ALLELES ###############################################################
 count_number_binding_alleles <- function(dtf, alleles) {
 	# bin patients by alleles that bind 
@@ -119,15 +53,17 @@ icgc <- read.delim(
 	'icgc_megatable.txt',
 	as.is = TRUE
 	)
-# read in all samples that have epitope predictions
-icgc_hlas <- get_icgc_hlas(samples = icgc$sample_name, basedir = args$idir)
-
+# read in icgc hlas
+icgc_hlas <- read.delim(
+	'icgc_hlas.txt',
+	as.is = TRUE
+	)
 # count number of binding alleles 
 icgc_hlas_both <- count_number_binding_alleles(icgc_hlas, gp2_e75_hlas)
 
 # annotate 
-colnames(icgc_hlas_both) <- c('Experiment.System.ID','hla')
-icgc_hlas_both <- merge(icgc_hlas_both, icgc, by = 'Experiment.System.ID')
+colnames(icgc_hlas_both) <- c('sample_name','hla')
+icgc_hlas_both <- merge(icgc_hlas_both, icgc, by = 'sample_name')
 # assign subtype
 icgc_hlas_both$subtype <- (icgc_hlas_both$final.HER2 == 'positive')*1
 icgc_hlas_both$hla <- (icgc_hlas_both$hla >= median(icgc_hlas_both$hla))*1
@@ -141,8 +77,12 @@ metabric <- read.delim(
 	'metabric_megatable.txt',
 	as.is = TRUE
 	)
-# read in all samples that have epitope predictions
-metabric_hlas <- get_metabric_hlas(samples = metabric$sample, basedir = args$mdir)
+# read in metabric hlas 
+# only keep alleles with 80% imputation accuracy
+metabric_hlas <- read.delim(
+	'metabric_hlas.txt',
+	as.is = TRUE
+	)
 
 # count number of binding alleles 
 metabric_hlas_both <- count_number_binding_alleles(metabric_hlas, gp2_e75_hlas)
@@ -167,7 +107,6 @@ plot_data$index <- 1:nrow(plot_data)
 meta_data <- escalc(measure="OR", yi = coef, sei = se, 
                         data = plot_data)
 res <- rma(yi, vi, data=meta_data)
-
 
 create.scatterplot(
         index ~ coef,
