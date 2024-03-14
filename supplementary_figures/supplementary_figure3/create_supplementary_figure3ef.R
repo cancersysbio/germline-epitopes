@@ -9,7 +9,7 @@ library(liftOver)
 
 date <- Sys.Date()
 
-### SUPPLEMENTARY FIGURE 3G #######################################################################
+### SUPPLEMENTARY FIGURE 3E #######################################################################
 # read in tcga and hartwig frequencies 
 tcga <- read.delim('tcga_maf_gnomad.txt', as.is = TRUE)
 hartwig <- read.delim('hartwig_maf_gnomad.txt', as.is = TRUE)
@@ -71,7 +71,7 @@ create.scatterplot(
         )
 
 
-#### SUPPLEMENTARY FIGURE 3 ######################################################################
+#### SUPPLEMENTARY FIGURE 3F ######################################################################
 # read in icgc 
 icgc <- read.delim('icgc_maf_gnomad.txt', as.is = TRUE)
 
