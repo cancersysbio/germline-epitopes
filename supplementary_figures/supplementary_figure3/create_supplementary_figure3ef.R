@@ -1,92 +1,115 @@
-### CREATE SUPPLEMENTARY FIGURE 3GH ###############################################################
-# create supplementary figure 3gh 
-# scatterplot of hla frequencies in primary vs metastatic tumors
+### CREATE SUPPLEMENTARY FIGURE 3EF ###############################################################
+# create supplementary figure 3ef 
+# scatterplot of allele frequencies in primary vs metastatic tumors
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
+library(GenomicRanges)
+library(rtracklayer)
+library(liftOver)
 
 date <- Sys.Date()
 
 ### SUPPLEMENTARY FIGURE 3G #######################################################################
 # read in tcga and hartwig frequencies 
-tcga <- read.delim('tcga_hla_frequencies.txt', as.is = TRUE)
-hartwig <- read.delim('hartwig_hla_frequencies.txt', as.is = TRUE)
+tcga <- read.delim('tcga_maf_gnomad.txt', as.is = TRUE)
+hartwig <- read.delim('hartwig_maf_gnomad.txt', as.is = TRUE)
 
-th_plot_data <- merge(tcga, hartwig, by = 'allele', all = TRUE)
-colnames(th_plot_data) <- c('allele','tcga','hartwig')
+path = system.file(package="liftOver", "extdata", "hg38ToHg19.over.chain")
+ch = import.chain(path)
+
+# lift tcga to hg19
+tcga$chr <- paste0('chr', tcga$chr) 
+bed <- tcga[order(tcga$chr, tcga$start),]
+bed_gr <- makeGRangesFromDataFrame(bed)
+hg19 <- liftOver(bed_gr, ch)
+hg19 <- as.data.frame(hg19)
+mapping <- cbind(
+    bed[,c('chr','start')],
+    hg19[,c('seqnames','start')]
+    )
+mapping <- mapping[,-3]
+colnames(mapping) <- c('chr','start','hg19')
+tcga <- merge(tcga, mapping, by = c('chr','start'), all.x = TRUE)
+# create snp id with hg19 coordinates
+tcga$snp <- paste(gsub('chr','', tcga$chr), tcga$hg19, sep = '_')
+
+th_plot_data <- merge(tcga[,c('snp','gene','maf')], hartwig[,c('snp','gene','maf')], by = c('snp','gene'), all = TRUE)
+colnames(th_plot_data) <- c('gene','snp','tcga','hartwig')
+
 th_plot_data[is.na(th_plot_data)] <- 0
 
 # create scatterplot 
 create.scatterplot(
         hartwig ~ tcga,
         data = th_plot_data,
-        ylimits = c(0,0.30),
-        xlimits = c(0,0.30),
-        yat = seq(0,0.3,0.1),
-        xat = seq(0,0.3,0.1),
+        ylimits = c(0,0.5),
+        xlimits = c(0,0.5),
+        yat = seq(0,0.4,0.1),
+        xat = seq(0,0.4,0.1),
         add.xyline = TRUE,
-        filename = paste0(date, '_tcga_vs_hartwig_HLA_frequency_scatterplot.png'),
         ylab.label = 'Hartwig',
         xlab.label = 'TCGA',
+        filename = paste0(date, '_tcga_hartwig_maf_scatterplot.png'),
         legend = list(
-                inside = list(
-                        fun = draw.key,
-                        args = list(
-                             key = get.corr.key(
-                                 x = th_plot_data$tcga,
-                                 y = th_plot_data$hartwig,
-                                 label.items = c('pearson','pearson.p'),
-                                 alpha.background = 0,
-                                 key.cex = 1.2
-                                 )
-                             ),
-                         x = 0.01,
-                         y = 0.99,
-                         corner = c(0,1)
-                         )
-                     ),
-                resolution = 300
-                )
+             inside = list(
+                     fun = draw.key,
+                     args = list(
+                         key = get.corr.key(
+                             x = th_plot_data$tcga,
+                             y = th_plot_data$hartwig,
+                             label.items = c('pearson','pearson.p'),
+                             alpha.background = 0,
+                             key.cex = 1.5
+                             )
+                         ),
+                     x = 0.04,
+                     y = 0.95,
+                     corner = c(0,1)
+                     )
+                 ),
+        resolution = 300
+        )
 
 
-#### SUPPLEMENTARY FIGURE 3B ######################################################################
+#### SUPPLEMENTARY FIGURE 3 ######################################################################
 # read in icgc 
-icgc <- read.delim('icgc_hla_frequencies.txt', as.is = TRUE)
+icgc <- read.delim('icgc_maf_gnomad.txt', as.is = TRUE)
 
-ih_plot_data <- merge(icgc, hartwig, by = 'allele', all = TRUE)
-colnames(ih_plot_data) <- c('allele','icgc','hartwig')
+# merge 
+ih_plot_data <- merge(icgc[,c('snp','gene','maf')], hartwig[,c('snp','gene','maf')], by = c('gene','snp'), all = TRUE)
+colnames(ih_plot_data) <- c('gene','snp','icgc','hartwig')
+
 ih_plot_data[is.na(ih_plot_data)] <- 0
 
-# create scatterplot 
+# plot_data 
 create.scatterplot(
-        hartwig ~ icgc,
-        data = ih_plot_data,
-        ylimits = c(0,0.30),
-        xlimits = c(0,0.30),
-        yat = seq(0,0.3,0.1),
-        xat = seq(0,0.3,0.1),
-        add.xyline = TRUE,
-        filename = paste0(date, '_icgc_vs_hartwig_HLA_frequency_scatterplot.png'),
-        ylab.label = 'Hartwig',
-        xlab.label = 'ICGC',
-        legend = list(
-                inside = list(
-                        fun = draw.key,
-                        args = list(
-                             key = get.corr.key(
-                                 x = ih_plot_data$icgc,
-                                 y = ih_plot_data$hartwig,
-                                 label.items = c('pearson','pearson.p'),
-                                 alpha.background = 0,
-                                 key.cex = 1.2
-                                 )
-                             ),
-                         x = 0.01,
-                         y = 0.99,
-                         corner = c(0,1)
+    hartwig ~ icgc, 
+    data = ih_plot_data,
+    ylab.label = 'Hartwig',
+    xlab.label = 'ICGC',
+    ylimits = c(0,0.5),
+    xlimits = c(0,0.5),
+    yat = seq(0,0.4,0.1),
+    xat = seq(0,0.4,0.1),
+    filename = paste0(date, '_icgc_hartwig_maf_scatterplot.png'),
+    add.xyline = TRUE,
+    legend = list(
+             inside = list(
+                 fun = draw.key,
+                 args = list(
+                     key = get.corr.key(
+                         x = ih_plot_data$icgc,
+                         y = ih_plot_data$hartwig,
+                         label.items = c('pearson','pearson.p'),
+                         alpha.background = 0,
+                         key.cex = 1.5
                          )
                      ),
-                resolution = 300
-                )
-
-
+                 x = 0.04,
+                 y = 0.95,
+                 corner = c(0,1)
+                 )
+             ),
+    resolution = 300
+    )
 
