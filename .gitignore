@@ -5,6 +5,10 @@
 # SKIP PDF
 *.pdf
 
+# Skip outputs
+
+er_cna_immune_clustering/
+immune_clustering/
 
 # Session Data files
 .RData
