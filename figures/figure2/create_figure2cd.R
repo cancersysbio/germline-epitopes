@@ -133,8 +133,8 @@ filename <- paste0(date, '_TUBD1_rs1292053_antigen_boxplot.pdf')
 
 # create barplot
 create.boxplot(
-	Freq ~ type,
-	data = plot_data,
+  formula = rank_diff ~ type,
+	data = tubd1_antigens,
 	add.stripplot = TRUE,
 	xlab.label = 'Allele Amplified',
 	xaxis.lab = c('Alt','Ref'),
