@@ -57,3 +57,12 @@ This is the source data for **Supplementary Figure 3j** demonstrating a enrichme
 **u95:** upper 95% confidence interval\
 **iteration:** iteration number
 
+### Variance explained by rare and common variants
+The is the source data for **Supplementary Figure 1S** demonstrating majority of the variance explained is from common variants.\
+**file:** rare_common_r2_estimates.txt
+
+#### Columns
+**subtype:** subtype\
+**common:** variance explained (r2) by common variants
+**rare:** variance explained (r2) by rare variants
+
