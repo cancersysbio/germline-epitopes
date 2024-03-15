@@ -5,6 +5,12 @@
 library(BoutrosLab.plotting.general)
 library(ConsensusClusterPlus)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 
 ### REFORMAT BINDERS IMMUNE AND RNA DATAFRAME #####################################################
@@ -28,7 +34,7 @@ reformat_bds_immune_rna_df <- function(dtf, subtype) {
 ### MAIN ##########################################################################################
 # read in megatable
 dtf <- read.delim(
-	'tcga_megatable.txt',
+  file.path(main_repo_path,'data','cohort_megatables','tcga_megatable.txt'),
 	as.is = TRUE
 	)
 
