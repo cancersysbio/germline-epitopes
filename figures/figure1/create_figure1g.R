@@ -4,6 +4,13 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+date <- Sys.Date()
+
 ### TEST SUBTYPE ASSOCIATION ######################################################################
 run_subtype_associations <- function(dtf, subtype, gene = NULL) {
         genes <- list(
@@ -53,7 +60,7 @@ run_subtype_associations <- function(dtf, subtype, gene = NULL) {
 ### MAIN #######################################################################################
 # read in summary data
 tcga <- read.delim(
-        'tcga_megatable.txt', 
+  file.path(main_repo_path,'data','cohort_megatables','tcga_megatable.txt'), 
 	as.is = TRUE
 	)
 # test subtype association 

@@ -9,12 +9,10 @@ library(vcfR)
 library(bedr)
 
 # Set the main path for repo
-#main_repo_path <- "~/stanford/projects/BC_GermlineEpitopes/code/germline-epitopes"
-if (!exists("main_repo_path")) {
-  stop("Error: Data path variable not set. Please set the path and try again.")
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
 }
-
-
 
 date <- Sys.Date()
 ### REFORMAT ANTIGENS ##############################################################################
