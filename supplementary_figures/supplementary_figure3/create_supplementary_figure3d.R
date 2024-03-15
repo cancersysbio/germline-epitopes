@@ -1,5 +1,5 @@
 ### CREATE SUPPLEMENTARY FIGURE 3D #################################################################
-# create tcga subtype, prognosis and immune related plots
+# create forest plot of subtype associations in hartwig
 # create supplementary figure 3d
 
 ### PREAMBLE ######################################################################################
