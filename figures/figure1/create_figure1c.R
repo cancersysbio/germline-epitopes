@@ -4,6 +4,9 @@
 library(BoutrosLab.plotting.general)
 library(tidyr)
 
+# Set the main path
+main_repo_path <- "~/stanford/projects/BC_GermlineEpitopes/code/germline-epitopes"
+
 date <- Sys.Date()
 ### CREATE CONTINGENCY MULTIPLOT ##################################################################
 create_gp2_barplot <- function(df, filename) {
@@ -67,7 +70,7 @@ count_number_binding_alleles <- function(dtf, alleles) {
 get_tcga_hlas <- function(samples) {
 	# read in hlas 
 	hlas <- read.delim(
-		'Shukla_Wu_Getz_Polysolver_HLA_Types_2015.tsv',
+	  file.path(main_repo_path,'data','auxiliary_data','Shukla_Wu_Getz_Polysolver_HLA_Types_2015.tsv'),
 		header = FALSE,
 		as.is = TRUE
 		)
@@ -80,13 +83,14 @@ get_tcga_hlas <- function(samples) {
 ### MAIN ##################################################################################
 # read in samples 
 tcga <- read.delim(
-	'tcga_megatable.txt',
+  file.path(main_repo_path,'data','cohort_megatables','tcga_megatable.txt'),
 	as.is = TRUE
 	)
 samples <- tcga$sample
+
 # read in hlas 
 gp2_e75_hlas <- read.delim(
-	'gp2_e75_hlas.txt',
+  file.path(main_repo_path,'data','auxiliary_data','gp2_e75_hlas.txt'),
 	as.is = TRUE,
 	header = FALSE
 	)
@@ -100,6 +104,7 @@ tcga_hlas_both <- count_number_binding_alleles(tcga_hlas, gp2_e75_hlas)
 
 # annotate
 tcga_hlas_both <- merge(tcga_hlas_both, tcga, by = 'sample')
+
 # set subtype
 tcga_hlas_both$hla <- (tcga_hlas_both$hla >= median(tcga_hlas_both$hla))*1
 tcga_hlas_both$subtype <- (tcga_hlas_both$HER2.newly.derived == 'Positive')*1
