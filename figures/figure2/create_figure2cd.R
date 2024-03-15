@@ -8,6 +8,12 @@ library(plyr)
 library(vcfR)
 library(bedr)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### REFORMAT ANTIGENS ##############################################################################
 reformat_antigens <- function(readsdf, antigens, gene, chr, pos, thresholds = c(0.2, 0.8)) {
@@ -38,11 +44,15 @@ reformat_antigens <- function(readsdf, antigens, gene, chr, pos, thresholds = c(
 ### ERBB2 #########################################################################################
 # identify samples with low and high alt allele counts
 erbb2_readsdf <- read.delim(
-	'erbb2_snp_read_depths.txt',
+  file.path(main_repo_path,'data','auxiliary_data','erbb2_snp_read_depths.txt'),
 	as.is = TRUE
 	)
+
 # read in antigens generated from run_antigen_garnish.R
-erbb2_antigens <- read.delim('erbb2_snp_peptides.txt', as.is = TRUE)
+erbb2_antigens <- read.delim(
+  file.path(main_repo_path,'data','auxiliary_data','erbb2_snp_peptides.txt'), 
+  as.is = TRUE)
+
 erbb2_antigens <- reformat_antigens(erbb2_readsdf, antigens = erbb2_antigens, 
 	gene = 'ERBB2', chr = 17, pos = 39727784, thresholds = c(0.4, 0.6))
 
@@ -101,11 +111,15 @@ create.boxplot(
 ### TUBD1 ##########################################################################################
 # identify samples with low and high alt allele counts
 tubd1_readsdf <- read.delim(
-	'tubd1_snp_read_depths.txt',
+  file.path(main_repo_path,'data','auxiliary_data','tubd1_snp_read_depths.txt'),
 	as.is = TRUE
 	)
+
 # read in antigens generated from run_antigen_garnish.R
-tubd1_antigens <- read.delim('tubd1_snp_peptides.txt', as.is = TRUE)
+tubd1_antigens <- read.delim(
+  file.path(main_repo_path,'data','auxiliary_data','tubd1_snp_peptides.txt'),
+  as.is = TRUE)
+
 tubd1_antigens <- reformat_antigens(tubd1_readsdf, antigens = tubd1_antigens, 
 	gene = 'TUBD1', chr = 17, pos = 59886176, thresholds = c(0.4, 0.6))
 
@@ -122,8 +136,8 @@ filename <- paste0(date, '_TUBD1_rs1292053_antigen_boxplot.pdf')
 
 # create barplot
 create.boxplot(
-	Freq ~ type,
-	data = plot_data,
+  formula = rank_diff ~ type,
+	data = tubd1_antigens,
 	add.stripplot = TRUE,
 	xlab.label = 'Allele Amplified',
 	xaxis.lab = c('Alt','Ref'),

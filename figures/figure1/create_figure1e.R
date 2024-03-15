@@ -4,6 +4,12 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+date <- Sys.Date()
 ### CREATE CONTINGENCY MULTIPLOT ##################################################################
 create_contingency_multiplot <- function(df, filename, ylimits = c(0,0.22), yat = seq(0,0.2,0.05),
         ylab.label = 'Ratio of HER2+/HER2-\n', text.y = c(0.19,0.18)) {
@@ -56,7 +62,7 @@ create_contingency_multiplot <- function(df, filename, ylimits = c(0,0.22), yat 
 ### MAIN #######################################################################################
 # read in summary data
 tcga <- read.delim(
-	'tcga_megatable.txt', 
+  file.path(main_repo_path,'data','cohort_megatables','tcga_megatable.txt'), 
 	as.is = TRUE
 	)
 # create conintency table with pam50

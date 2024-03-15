@@ -8,6 +8,13 @@ library(survival)
 library(caret)
 library(pec)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+date <- Sys.Date()
+
 ### TEST RISK PREDICTIONS COMPARED TO CLINICAL ####################################################
 bootstrap_cindex <- function(dtf, model1, model2, iterations = 100) {
 	# bootstrap the predictions 
@@ -43,7 +50,7 @@ calculate_ci <- function(x) {
 ### MAIN #######################################################################################
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+  file.path(main_repo_path,'data','cohort_megatables','metabric_megatable.txt'),
 	as.is = TRUE
 	)
 
