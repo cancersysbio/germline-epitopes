@@ -156,7 +156,9 @@ res_er <- bootstrap_cindex(meta_prog_er,
 	iteration = 1000
 	)
 
-# run model in ER+ high risk samples 
+# run model in Her2+ samples 
+# NOTE: given the small number of samples and large number of covariates some iterations don't converge 
+# may need rerun if it throws an error
 meta_prog_her2 <- meta_prog[which(meta_prog$CLAUDIN_SUBTYPE == 'Her2' & !is.na(meta_prog$ER)),]
 meta_prog_her2$burden <- sign(meta_prog_her2$ERBB2)
 

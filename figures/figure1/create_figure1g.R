@@ -72,7 +72,6 @@ plot_data_subtype <- rbind(
 	)
 
 ### SUBTYPE PLOT ####
-plot_data_subtype <- plot_data_subtype[plot_data_subtype$nonzero_subtype > 6,]
 plot_data_subtype$index <- 1:nrow(plot_data_subtype)
 plot_data_subtype <- plot_data_subtype[order(plot_data_subtype$index),]
 
