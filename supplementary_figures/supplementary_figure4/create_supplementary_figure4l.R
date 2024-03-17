@@ -5,11 +5,17 @@
 library(BoutrosLab.plotting.general)
 library(tidyr)
 
+# Set the main path for repo
+main_repo_path <- "/Users/khoulaha/git/germline-epitopes"
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in METABRIC IMC data
 imc <- read.csv(
-	'Ali_Nat_Cancer_2020_single_cell_data.csv',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'Ali_Nat_Cancer_2020_single_cell_data.csv'),
 	as.is = TRUE
 	)
 
@@ -19,7 +25,7 @@ cancer <- c('Basal CKlow','HER2+','HR- CK7-','HR- CK7+','HR- CKlow CK5+','HR- Ki
 
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'metabric_megatable.txt'),
 	as.is = TRUE
 	)
 imc <- imc[imc$metabricId %in%  metabric$sample,]
@@ -108,7 +114,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-3,3),
-        filename = paste0(date, '_metabric_imc_scatterplot.pdf'),
+        filename = paste0(date, '_metabric_imc_scatterplot.png'),
         xlab.label = 'Coefficient',
         ylab.label = '',
         yaxis.lab = c('ER+','HER2+'),

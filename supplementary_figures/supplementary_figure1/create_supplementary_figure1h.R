@@ -5,6 +5,12 @@
 library(GenomicRanges)
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST SUBTYPE ASSOCIATION ######################################################################
 run_subtype_associations <- function(dtf, subtype, gene = NULL, hla_correct = FALSE) {
@@ -93,13 +99,17 @@ find_hla_cn <- function(cna) {
 ### MAIN ##########################################################################################
 # read in tcga data 
 tcga <- read.delim(
-        'tcga_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
         as.is = TRUE
         )
-# read in cna 
+# read in cna
 # downloaded from https://gdc.cancer.gov/about-data/publications/pancanatlas
+cnafile <- file.path('data', 'auxiliary_data', 'TCGA_mastercalls.abs_segtabs.fixed.txt')
+if (!file.exists(cnafile)) {
+  stop("Error: Please download tcga cna segment file from https://gdc.cancer.gov/about-data/publications/pancanatlas and put in auxiliary_data folder")
+} 
 cna <- read.delim(
-        'TCGA_mastercalls.abs_segtabs.fixed.txt',
+        cnafile,
         as.is = TRUE
         )
 cna$sample <- substr(cna$Sample, 1, 12)

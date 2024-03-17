@@ -5,8 +5,13 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
-date <- Sys.Date()
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
+date <- Sys.Date()
 ### TEST SUBTYPE ASSOCIATION ######################################################################
 run_subtype_associations <- function(dtf, subtype, genes_to_test, gene = NULL) {
 	# set cna genes
@@ -76,7 +81,7 @@ test_keratins <- function(dtf, keratin, subtype) {
 ### MAIN ##########################################################################################
 # read in negative controls 
 negcontrols <- read.delim(
-	'negative_control_geb_table.txt',
+	file.path(main_repo_path, 'data', 'controls', 'negative_control_geb_table.txt'),
 	as.is = TRUE
 	)
 
@@ -99,7 +104,7 @@ neg_plot_data <- rbind(
 
 # read in tcga megatable
 tcga <- read.delim(
-	'tcga_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables','tcga_megatable.txt'),
 	as.is = TRUE
 	)
 
@@ -169,7 +174,7 @@ create.boxplot(
         coef ~ type,
         data = plot_data_control,
         add.stripplot = TRUE,
-        filename = paste0(date, '_nonexpressed_keratin_vs_subtype_coefficients_boxplot.pdf'),
+        filename = paste0(date, '_nonexpressed_keratin_vs_subtype_coefficients_boxplot.png'),
         resolution = 300,
         ylimits = c(-1.1,1.1),
         yat = seq(-1, 1, 0.5),

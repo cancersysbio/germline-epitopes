@@ -5,11 +5,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### SUPPLEMENTARY FIGURE 3C #######################################################################
 # read in pcs
 plot_data <- read.delim(
-	'hartwig_pca_with_reference.txt',
+	file.path(main_repo_path, 'data', 'ancestry_inference', 'hartwig_pca_with_reference.txt'),
 	as.is = TRUE
 	)
 

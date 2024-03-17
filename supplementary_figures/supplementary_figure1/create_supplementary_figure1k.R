@@ -6,6 +6,11 @@
 library(BoutrosLab.plotting.general)
 library(plyr)
 
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST ASSOCIATION ##############################################################################
 run_subtype_associations <- function(dtf, subtype, gene = NULL) {
@@ -98,7 +103,7 @@ run_null_analyses <- function(tcgadir) {
 ### MAIN ##########################################################################################
 # read in summary table 
 tcga <- read.delim(
-        'tcga_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables','tcga_megatable.txt'),
         as.is = TRUE
         )
 # test subtype association 
@@ -113,7 +118,7 @@ plot_data_subtype <- rbind(
 # file generated with run_null_analyses(tcgadir)
 # read in null results
 null <- read.delim(
-        'primary_null_associations.txt',
+         file.path(main_repo_path, 'data', 'controls', 'primary_null_associations.txt'),
         as.is = TRUE
         )
 
@@ -169,7 +174,7 @@ create.scatterplot(
         data = plot_data_subtype,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_null_compared_real_scatterplot.pdf'),
+        filename = paste0(date, '_null_compared_real_scatterplot.png'),
         xat = c(-2,-1, 0, 1, 2),
         xaxis.lab = c(0.15,0.37, 1, 2.70, 7.40),
         xlab.label = 'Odds Ratio',

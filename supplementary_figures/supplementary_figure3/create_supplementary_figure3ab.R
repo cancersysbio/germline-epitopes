@@ -4,8 +4,13 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
-date <- Sys.Date()
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
+date <- Sys.Date()
 ### CREATE MAF SCATTERPLOT ########################################################################
 create_maf_scatterplot <- function(mafs, filename, xlab.label) {
        create.scatterplot(
@@ -45,7 +50,7 @@ create_hla_scatterplot <- function(freq, filename) {
         pop <- list()
         for (allele in c('A','B','C')) {
                 pop[[allele]] <- read.csv(
-                        paste0("population_hla_", tolower(allele), "_frequencies.csv"),
+                        file.path(main_repo_path, 'data', 'mafs', paste0("population_hla_", tolower(allele), "_frequencies.csv")),
                         as.is = TRUE
                         )
         }
@@ -90,7 +95,7 @@ create_hla_scatterplot <- function(freq, filename) {
 ### SUPPLEMENTARY FIGURE 3A #######################################################################
 # read in maf in tcga 
 hmafs <- read.delim(
-	'hartwig_maf_gnomad.txt',
+	file.path(main_repo_path, 'data', 'mafs', 'hartwig_maf_gnomad.txt'),
 	as.is = TRUE
 	)
 
@@ -101,7 +106,10 @@ create_maf_scatterplot(mafs = hmafs, filename = paste0(date, '_gnomad_hartwig_sc
 
 #### SUPPLEMENTARY FIGURE 3B ######################################################################
 # read in tcga hla frequencies 
-hartwig_freq <- read.delim('hartwig_hla_frequencies.txt', as.is = TRUE)
+hartwig_freq <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs','hartwig_hla_frequencies.txt'), 
+    as.is = TRUE
+    )
 # create scatterplot
 create_hla_scatterplot(hartwig_freq, filename = paste0(date, '_hartwig_hla_frequencies_scatterplot.png'))
 

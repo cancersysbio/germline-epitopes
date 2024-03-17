@@ -4,10 +4,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general) 
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in summary data
 tcga <- read.delim(
-	'tcga_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'), 
 	as.is = TRUE
 	)
 
@@ -38,7 +45,7 @@ create.barplot(
 	main = paste0('TCGA HER2+\n(n=', nrow(meta_her2), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_HER2_TME_barplot.pdf'),
+	filename = paste0(date, '_HER2_TME_barplot.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(
@@ -110,7 +117,7 @@ create.barplot(
 	main = paste0('TCGA ER+\n(n=', nrow(meta_er), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_ER_TME_barplot.pdf'),
+	filename = paste0(date, '_ER_TME_barplot.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(

@@ -7,12 +7,23 @@ library(GenomicRanges)
 library(rtracklayer)
 library(liftOver)
 
-date <- Sys.Date()
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
+date <- Sys.Date()
 ### SUPPLEMENTARY FIGURE 3E #######################################################################
 # read in tcga and hartwig frequencies 
-tcga <- read.delim('tcga_maf_gnomad.txt', as.is = TRUE)
-hartwig <- read.delim('hartwig_maf_gnomad.txt', as.is = TRUE)
+tcga <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs', 'tcga_maf_gnomad.txt'), 
+    as.is = TRUE
+    )
+hartwig <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs','hartwig_maf_gnomad.txt'), 
+    as.is = TRUE
+    )
 
 path = system.file(package="liftOver", "extdata", "hg38ToHg19.over.chain")
 ch = import.chain(path)
@@ -73,7 +84,10 @@ create.scatterplot(
 
 #### SUPPLEMENTARY FIGURE 3F ######################################################################
 # read in icgc 
-icgc <- read.delim('icgc_maf_gnomad.txt', as.is = TRUE)
+icgc <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs','icgc_maf_gnomad.txt'), 
+    as.is = TRUE
+    )
 
 # merge 
 ih_plot_data <- merge(icgc[,c('snp','gene','maf')], hartwig[,c('snp','gene','maf')], by = c('gene','snp'), all = TRUE)

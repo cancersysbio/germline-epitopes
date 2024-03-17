@@ -4,6 +4,13 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### IMMUNE ########################################################################################
 format_immune_cell_plot_data <- function(dtf, subtype, gene = NULL, feature) {
 	if (subtype == 'HER2') {
@@ -63,7 +70,7 @@ create_immune_boxplot <- function(dtf, feature, ylimits, yat, ylab.label, text.y
 		data = plot_data_cell_boxplot,
 		add.stripplot = TRUE,
 		ylab.label = ylab.label,
-		filename = paste0(date, '_', feature, '_boxplot.pdf'),
+		filename = paste0(date, '_', feature, '_boxplot.png'),
 		xaxis.lab = rep(c('Low','High'), 3),
 		ylimits = ylimits,
 		yat = yat,
@@ -93,7 +100,7 @@ create_immune_boxplot <- function(dtf, feature, ylimits, yat, ylab.label, text.y
 ### MAIN ##########################################################################################
 # read in megatable 
 tcga <- read.delim(
-	'tcga_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
 	as.is = TRUE
 	)
 

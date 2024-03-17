@@ -5,10 +5,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general) 
 
+# Set the main path for repo
+main_repo_path <- "/Users/khoulaha/git/germline-epitopes"
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'metabric_megatable.txt'),
 	as.is = TRUE
 	)
 # group IC4
@@ -40,7 +47,7 @@ create.barplot(
 	main = paste0('METABRIC HER2+\n(n=', nrow(meta_her2), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_METABRIC_HER2_TME_barplot.pdf'),
+	filename = paste0(date, '_METABRIC_HER2_TME_barplot.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(
@@ -111,7 +118,7 @@ create.barplot(
 	main = paste0('METABRIC ER+\n(n=', nrow(meta_er), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_METABRIC_ER_TME_barplot.pdf'),
+	filename = paste0(date, '_METABRIC_ER_TME_barplot.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(
@@ -195,7 +202,7 @@ cov <- list(
 
 cov.grob <- covariates.grob(
         covariates = cov,
-        ord = c(1:nrow(plot_data_subtype)),
+        ord = c(1:nrow(plot_data)),
         side = 'right',
         size = 1
         );
@@ -219,7 +226,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-0.8,0.8),
-        filename = paste0(date, '_metabric_immune_sig_scatterplot.pdf'),
+        filename = paste0(date, '_metabric_immune_sig_scatterplot.png'),
         xlab.label = 'Coefficient',
         ylab.label = '',
         yaxis.lab = c(paste0('ER+ \n(n=', nrow(meta_er), ')'),paste0('HER2+ \n(n=', nrow(meta_her2), ')')),

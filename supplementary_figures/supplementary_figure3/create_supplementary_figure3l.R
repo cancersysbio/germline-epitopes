@@ -7,16 +7,22 @@ library(BoutrosLab.plotting.general)
 library(survminer)
 library(survival)
 
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### MAIN #######################################################################################
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'metabric_megatable.txt'),
 	as.is = TRUE
 	)
 
 # read in hlas
 hlas <- read.delim(
-	'hla_promiscuity_proportions.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'hla_promiscuity_proportions.txt'),
 	as.is = TRUE
 	)
 
@@ -91,9 +97,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-2,2),
-        #xat = log(c(0.15, 0.5, 1, 2.5, 8)),
-        #xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_metabric_hla_adjusted_survival_scatterplot.pdf'),
+        filename = paste0(date, '_metabric_hla_adjusted_survival_scatterplot.png'),
         xlab.label = 'Hazard Ratio',
         ylab.label = 'GEB',
         ylimits = c(0.5, nrow(plot_data)+0.5),

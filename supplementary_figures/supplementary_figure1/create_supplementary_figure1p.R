@@ -5,11 +5,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in tcga 
 tcga <- read.delim(
-	'tcga_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
 	as.is = TRUE
 	)
 
@@ -91,7 +97,7 @@ cov.legend.grob <- legend.grob(
 create.barplot(
 	count ~ index,
 	data = plot_data,
-	filename = paste0(date, '_tcga_subtype_definition_barplot.pdf'),
+	filename = paste0(date, '_tcga_subtype_definition_barplot.png'),
 	xaxis.lab = rep('', nrow(plot_data)),
 	ylab.label = 'Number of Samples',
 	ylimits = c(0,160),

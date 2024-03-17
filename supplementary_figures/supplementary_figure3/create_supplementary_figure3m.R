@@ -9,6 +9,11 @@ library(survival)
 library(caret)
 library(pec)
 
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST RISK PREDICTIONS COMPARED TO CLINICAL ####################################################
 bootstrap_cindex <- function(dtf, model1, model2, iterations = 100) {
@@ -45,7 +50,7 @@ calculate_ci <- function(x) {
 ### MAIN ##########################################################################################
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'metabric_megatable.txt'),
 	as.is = TRUE
 	)
 
@@ -117,7 +122,7 @@ create.boxplot(
 	cindex ~ group,
 	data = plot_data,
 	add.stripplot = TRUE,
-	filename = paste0(date, '_metabric_prediction_ER_high_HER2_5y_followup_boxplot.pdf'),
+	filename = paste0(date, '_metabric_prediction_ER_high_HER2_5y_followup_boxplot.png'),
 	ylimits = c(0.54, 0.95),
 	yat = seq(0.6,0.9,0.1),
 	ylab.label = 'C-Index',

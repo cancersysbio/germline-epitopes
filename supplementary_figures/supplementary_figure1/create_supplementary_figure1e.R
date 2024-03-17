@@ -5,11 +5,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN #######################################################################################
 # read in summary data
 tcga <- read.delim(
-	'tcga_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'), 
 	as.is = TRUE
 	)
          
@@ -42,7 +48,7 @@ create.barplot(
 	Freq ~ subtype,
 	groups = bds,
 	data = plot_data,
-	filename = paste0(date, '_bds_per_regions_barplot.pdf'),
+	filename = paste0(date, '_bds_per_regions_barplot.png'),
 	col = default.colours(5, palette.type = 'spiral.afternoon')[c(1,3,5)],
 	ylimits = c(0,650),
 	yat = seq(0,650,100),

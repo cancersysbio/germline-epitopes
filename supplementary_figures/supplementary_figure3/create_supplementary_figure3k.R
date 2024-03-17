@@ -6,13 +6,17 @@
 library(BoutrosLab.plotting.general)
 library(survminer)
 library(survival)
-library(caret)
-library(pec)
 
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### MAIN #######################################################################################
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables','metabric_megatable.txt'),
 	as.is = TRUE
 	)
 
@@ -56,6 +60,9 @@ for (i in c('IC1','IC2','IC6','IC9')) {
 }
 res <- do.call(rbind, res)
 
+plot_data <- res
+plot_data$index <- 1:nrow(plot_data)
+
 
 create.scatterplot(
         index ~ hr,
@@ -64,7 +71,7 @@ create.scatterplot(
         xlimits = c(-0.5,1.7),
         xat = log(c(0.15, 0.5, 1, 2.5, 8)),
         xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_IC_survival_scatterplot.pdf'),
+        filename = paste0(date, '_IC_survival_scatterplot.png'),
         xlab.label = 'Hazard Ratio',
         ylab.label = 'Subtype',
         ylimits = c(0.5, nrow(plot_data)+0.5),

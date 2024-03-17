@@ -4,10 +4,12 @@
 
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
-library(argparse)
 library(plyr)
-library(vcfR)
-library(bedr)
+
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
 date <- Sys.Date()
 ### CREATE READS BARPLOT ##########################################################################
@@ -79,16 +81,16 @@ create_reads_barplot <- function(readsdf, chr, pos, thresholds = c(0.2, 0.8)) {
 			)
 	create.multipanelplot(
 			list(bar1, bar2),
-			filename = paste0(date, '_chr', chr, '_', pos, '_reads_ratio_tumor_barplot.pdf'),
+			filename = paste0(date, '_chr', chr, '_', pos, '_reads_ratio_tumor_barplot.png'),
 			resolution = 300,
 			width = 12
 			)
 	}
-}
+
 ### MAIN ##########################################################################################
 # create read frequency barplot for ERBB2 variant
 erbb2_readsdf <- read.delim(
-	'erbb2_snp_read_depths.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'erbb2_snp_read_depths.txt'),
 	as.is = TRUE
 	)
 create_reads_barplot(
@@ -100,7 +102,7 @@ create_reads_barplot(
 
 # create read frequency barplot for TUBD1 variant
 tubd1_readsdf <- read.delim(
-	'tubd1_snp_read_depths.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'tubd1_snp_read_depths.txt'),
 	as.is = TRUE
 	)
 create_reads_barplot(

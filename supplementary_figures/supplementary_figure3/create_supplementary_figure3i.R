@@ -5,6 +5,13 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### COMPARE PRIMARY VS METASTASIS #################################################################
 compare_prim_vs_met <- function(hartwig, tcga, icgc, subtype, gene = NULL) {
 	genes <- list(
@@ -76,16 +83,16 @@ compare_prim_vs_met <- function(hartwig, tcga, icgc, subtype, gene = NULL) {
 ### SUBTYPE #######################################################################################
 # read in summary data
 hartwig <- read.delim(
-	'hartwig_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'hartwig_megatable.txt'), 
 	as.is = TRUE
 	)
 # read in tcga summary data 
 tcga <- read.delim(
-	'tcga_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables','tcga_megatable.txt'), 
 	as.is = TRUE
 	)
 icgc <- read.delim(
-	'icgc_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables','icgc_megatable.txt'), 
 	as.is = TRUE
 	)
 
@@ -141,7 +148,7 @@ create.scatterplot(
         data = plot_data_pvm,
         horizontal = TRUE,
         xlimits = c(-2.2,2.2),
-        filename = paste0(date, '_primary_vs_met_scatterplot.pdf'),
+        filename = paste0(date, '_primary_vs_met_scatterplot.png'),
         xat = c(log(c(0.2,0.5)),0, log(c(2,6))),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '6.0'),
         xlab.label = 'Odds Ratio',

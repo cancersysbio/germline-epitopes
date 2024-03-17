@@ -5,11 +5,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # create thresholds plot 
 her2_thres <- read.delim(
-	'tcga_her2_thresholds.txt', 
+	file.path(main_repo_path, 'data', 'controls', 'tcga_her2_thresholds.txt'), 
 	as.is = TRUE
 	)
 res <- list()
@@ -41,7 +47,7 @@ create.scatterplot(
         xlimits = c(-1.5,1.5),
         xat = log(c(0.15, 0.5, 1, 2.5, 8)),
         xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_her2_thresholds_scatterplot.pdf'),
+        filename = paste0(date, '_her2_thresholds_scatterplot.png'),
         xlab.label = 'Odds Ratio',
         ylab.label = 'Rank Thresholds',
         ylimits = c(0.5, nrow(res)+0.5),

@@ -6,6 +6,13 @@
 library(BoutrosLab.plotting.general)
 library(tidyr)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+
 date <- Sys.Date()
 ### CREATE IC BOXPLOT ##############################################################################
 create_ic_boxplot <- function(ic, icgenes, ylimits = NULL, yat = TRUE) {
@@ -57,10 +64,14 @@ create_ic_boxplot <- function(ic, icgenes, ylimits = NULL, yat = TRUE) {
 }
 
 ### MAIN ##########################################################################################
-# read in rna 
-# file downloaded from https://gdc.cancer.gov/about-data/publications/pancanatlas
+# read in rna
+# file downloaded from https://gdc.cancer.gov/about-data/publications/pancanatlas 
+rnafile <- file.path('data', 'auxiliary_data', 'EBPlusPlusAdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.tsv')
+if (!file.exists(rnafile)) {
+  stop("Error: Please download tcga rna file from https://gdc.cancer.gov/about-data/publications/pancanatlas and put in auxiliary_data folder")
+}
 rna <- read.delim(
-        'EBPlusPlusAdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.tsv',
+        rnafile,
         as.is = TRUE
         )
 rna_genes <- sapply(rna$gene_id, function(x) strsplit(x, '\\|')[[1]][1])
@@ -72,7 +83,7 @@ colnames(rna_tumor) <- gsub('.', '-', colnames(rna_tumor), fixed = TRUE)
 rna_tumor$id <- rna_genes
 
 # read in TCGA annotations
-load('genefuAnnotations.RData')
+load(file.path(main_repo_path, 'data', 'auxiliary_data', 'genefuAnnotations.RData'))
 BRCA_annotation$donor <- substr(BRCA_annotation$ID, 1, 12)
 # keep only primary
 BRCA_annotation <- BRCA_annotation[order(BRCA_annotation$ID),]
@@ -182,6 +193,6 @@ create.boxplot(
         ylimits = c(0,6),
         yaxis.lab = c(expression(0), expression(10^2), expression(10^4), expression(10^6)),
         yaxis.cex = 1.3,
-        filename = paste0(date, '_genes_rna_tnbc_boxplot.pdf'),
+        filename = paste0(date, '_genes_rna_tnbc_boxplot.png'),
         resolution = 300
         )

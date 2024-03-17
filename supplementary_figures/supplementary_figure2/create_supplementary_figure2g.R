@@ -5,6 +5,12 @@
 library(BoutrosLab.plotting.general)
 library(metafor)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST SUBTYPE ASSOCIATION ######################################################################
 run_icgc_subtype_associations <- function(dtf, subtype, gene = NULL) {
@@ -103,7 +109,7 @@ run_metabric_subtype_associations <- function(dtf, subtype, gene = NULL) {
 ### SUBTYPE #######################################################################################
 # read in summary data
 icgc <- read.delim(
-	'icgc_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'icgc_megatable.txt'), 
 	as.is = TRUE
 	)
 # test subtype association 
@@ -116,7 +122,7 @@ icgc_data_subtype <- rbind(
 
 # read in summary data
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables','metabric_megatable.txt'),
 	as.is = TRUE
 	)
 # test subtype association 
@@ -128,7 +134,10 @@ metabric_data_subtype <- rbind(
 	)
 
 # add GEL results 
-gel_data_subtype <- read.delim('gel_subtype_associations.txt', as.is = TRUE)
+gel_data_subtype <- read.delim(
+	file.path(main_repo_path, 'data', 'cohort_megatables','gel_subtype_associations.txt'), 
+	as.is = TRUE
+	)
 gel_data_subtype <- gel_data_subtype[gel_data_subtype$subtype != 'IC10',]
 
 ### SUBTYPE PLOT ####
@@ -193,7 +202,7 @@ create.scatterplot(
         text.labels = paste0('n=', plot_data_subtype$number_subtype),
         text.x = 1,
         text.y = 1:nrow(plot_data_subtype),
-        filename = paste0(date, '_icgc_metabric_gel_scatterplot.pdf'),
+        filename = paste0(date, '_icgc_metabric_gel_scatterplot.png'),
         legend = list(
                 right = list(fun = cov.grob),
                 inside = list(fun = cov.legend.grob, corner = c(1,0), x = 0.99, y = 0.01)

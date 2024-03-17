@@ -5,6 +5,12 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST ASSOCIATIONS #############################################################################
 test_tcga_icgc_association <- function(tcga, subtype) {
@@ -42,8 +48,8 @@ test_metabric_association <- function(tcga, subtype) {
 
 ### TCGA ##########################################################################################
 # read in summary data
-tcga2 <- read.delim(
-        'tcga_megatable.txt',
+tcga <- read.delim(
+        file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
         as.is = TRUE
         )
 tcga$bds <- sign(tcga$ERBB2)
@@ -69,7 +75,7 @@ tplot_data$cohort <- 'TCGA'
 ### METABRIC #####################################################################################
 # read in summary data
 metabric <- read.delim(
-        'metabric_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables','metabric_megatable.txt'),
         as.is = TRUE
         )
 metabric$bds <- sign(metabric$ERBB2)
@@ -82,7 +88,7 @@ mplot_data$cohort <- 'METABRIC'
 ### ICGC ##########################################################################################
 # read in summary data
 icgc <- read.delim(
-        'icgc_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables','icgc_megatable.txt'),
 	as.is = TRUE
 	)
 icgc$bds <- sign(icgc$ERBB2)
@@ -104,14 +110,17 @@ iplot_data$cohort <- 'ICGC'
 
 ### GEL ###########################################################################################
 # read in summary data
-gplot_data <- read.delim('gel_her2_definition_associations.txt', as.is = TRUE)
+gplot_data <- read.delim(
+        file.path(main_repo_path, 'data', 'cohort_megatables','gel_her2_definition_associations.txt'), 
+        as.is = TRUE
+        )
 
 ### PLOT ###########################################################################################
 # create plot data
 plot_data <- rbind(tplot_data, iplot_data, gplot_data, mplot_data)
 plot_data <- plot_data[order(plot_data$subtype, plot_data$cohort),]
 # reorder slightly
-plot_data$index <- c(16,17,4:12,1:3,13:15)
+plot_data$index <- c(13:15,4:6,10:12,1:3, 7:9,16,17)
 plot_data <- plot_data[order(plot_data$index),]
 
 create.scatterplot(
@@ -119,7 +128,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_GEL_ICGC_TCGA_METABRIC_her2_definitions_scatterplot.pdf'),
+        filename = paste0(date, '_GEL_ICGC_TCGA_METABRIC_her2_definitions_scatterplot.png'),
         xat = c(-2,-1, 0, 1, 2),
         xaxis.lab = c(0.15,0.37, 1, 2.70, 7.40),
         xlab.label = 'Odds Ratio',

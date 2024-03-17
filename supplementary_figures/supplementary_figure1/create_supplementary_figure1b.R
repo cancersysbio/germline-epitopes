@@ -5,6 +5,12 @@
 library(BoutrosLab.plotting.general)
 library(metafor)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### COUNT NUMBER OF BINDING ALLELES ###############################################################
 count_number_binding_alleles <- function(dtf, alleles) {
@@ -41,7 +47,7 @@ apply_logistic_model <- function(hlas) {
 ### MAIN ##########################################################################################
 # read in gp2 and e75 alleles
 gp2_e75_hlas <- read.delim(
-	'gp2_e75_hlas.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'gp2_e75_hlas.txt'),
 	as.is = TRUE,
 	header = FALSE
 	)
@@ -50,12 +56,12 @@ gp2_e75_hlas <- gp2_e75_hlas$V1
 ### TEST IN ICGC ##################################################################################
 # read in icgc megatable 
 icgc <- read.delim(
-	'icgc_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'icgc_megatable.txt'),
 	as.is = TRUE
 	)
 # read in icgc hlas
 icgc_hlas <- read.delim(
-	'icgc_hlas.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data','icgc_hlas.txt'),
 	as.is = TRUE
 	)
 # count number of binding alleles 
@@ -74,13 +80,13 @@ icgc_res$cohort <- 'ICGC'
 ### TEST METABRIC #################################################################################
 # read in metabric 
 metabric <- read.delim(
-	'metabric_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables','metabric_megatable.txt'),
 	as.is = TRUE
 	)
 # read in metabric hlas 
 # only keep alleles with 80% imputation accuracy
 metabric_hlas <- read.delim(
-	'metabric_hlas.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data','metabric_hlas.txt'),
 	as.is = TRUE
 	)
 

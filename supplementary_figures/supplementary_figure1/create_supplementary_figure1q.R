@@ -4,6 +4,13 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
+date <- Sys.Date()
 ### CREATE CONTINGENCY MULTIPLOT ##################################################################
 create_contingency_multiplot <- function(df, filename, ylimits = c(0,0.22), yat = seq(0,0.2,0.05),
         ylab.label = 'Ratio of HER2+/HER2-\n', text.y = c(0.19,0.18)) {
@@ -56,14 +63,14 @@ create_contingency_multiplot <- function(df, filename, ylimits = c(0,0.22), yat 
 ### MAIN #######################################################################################
 # read in summary data
 tcga <- read.delim(
-	'tcga_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables','tcga_megatable.txt'), 
 	as.is = TRUE
 	)
 
 # create supplementary figure 1q
 tcga$bds <- sign(tcga$ZNF703)+sign(tcga$FGFR1)+sign(tcga$LETM2)+sign(tcga$EIF4EBP1)
 tcga$subtype <- (tcga$ZNF703_CNA == 1 & tcga$ER == 1)*1
-create_contingency_multiplot(tcga, filename = paste0(date, '_ic6_ratio_barplot.pdf'),
+create_contingency_multiplot(tcga, filename = paste0(date, '_ic6_ratio_barplot.png'),
         ylimits = c(0,0.3), ylab.label = 'Ratio of IC6/Other\n', yat = seq(0,0.3,0.1),
         text.y = c(0.29,0.27))
 

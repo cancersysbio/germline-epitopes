@@ -6,8 +6,13 @@
 library(BoutrosLab.plotting.general)
 library(plyr)
 
-date <- Sys.Date()
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
+date <- Sys.Date()
 ### COMPARE PRIM VS MET ###########################################################################
 compare_prim_vs_met <- function(hartwig, tcga, subtype, gene = NULL) {
         genes <- list(
@@ -132,11 +137,11 @@ run_null_analyses <- function(tcgadir, hartwigdir) {
 ### PRIMARY VS METASTATIC #########################################################################
 # read in summary table 
 tcga <- read.delim(
-        'tcga_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
         as.is = TRUE
         )
 hartwig <- read.delim(
-        'hartwig_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables','hartwig_megatable.txt'),
         as.is = TRUE
         )
 
@@ -151,7 +156,7 @@ plot_data_pvm <- rbind(
 # calculate null stats 
 # file generated with run_null_analyses(tcgadir, hartwigdir)
 null <- read.delim(
-        'primary_vs_metastatic_null_associations.txt',
+        file.path(main_repo_path, 'data', 'controls','primary_vs_metastatic_null_associations.txt'),
         as.is = TRUE
         )
 
@@ -207,7 +212,7 @@ create.scatterplot(
         data = plot_data_pvm,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_null_compared_real_prim_vs_met_scatterplot.pdf'),
+        filename = paste0(date, '_null_compared_real_prim_vs_met_scatterplot.png'),
         xat = c(-2,-1, 0, 1, 2),
         xaxis.lab = c(0.15,0.37, 1, 2.70, 7.40),
         xlab.label = 'Odds Ratio',

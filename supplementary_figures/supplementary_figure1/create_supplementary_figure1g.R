@@ -5,6 +5,12 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST ASSOCIATIONS #############################################################################
 test_association <- function(tcga, subtype) {
@@ -28,7 +34,7 @@ test_association <- function(tcga, subtype) {
 ### TCGA ##########################################################################################
 # read in summary data
 tcga <- read.delim(
-        'tcga_megatable.txt',
+        file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
 	as.is = TRUE
 	)
 tcga$bds <- sign(tcga$ERBB2)
@@ -58,7 +64,7 @@ create.scatterplot(
         data = tplot_data,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_TCGA_her2_definitions_scatterplot.pdf'),
+        filename = paste0(date, '_TCGA_her2_definitions_scatterplot.png'),
         xat = log(c(0.2,0.5, 1, 2, 5)),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '5.0'),
         xlab.label = 'Odds Ratio',

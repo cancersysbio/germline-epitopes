@@ -5,17 +5,22 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in summary tcga file
 tcga <- read.delim(
-	'tcga_megatable.txt',
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
 	as.is = TRUE
 	)
 
 # read in mhcflurry results
 res_avg <- read.delim(
-	'tcga_her2_mhcflurry.txt',
+	file.path(main_repo_path, 'data', 'controls', 'tcga_her2_mhcflurry.txt'),
 	as.is = TRUE
 	)
 
@@ -24,7 +29,7 @@ tcga <- merge(res_avg, tcga, by = 'sample')
 tcga$subtype <- (tcga$pam50 == 'Her2')*1
 
 flurryres <- list()
-for (i in colnames(allres)[-c(1:3,12)]) {
+for (i in colnames(res_avg)[-1]) {
 	fit <- glm(
 		as.formula(paste('subtype ~ ', i, '+ PC1 + PC2 + PC3 + PC4 + PC5 + PC6')), 
 		data = tcga, family = 'binomial'
@@ -49,7 +54,7 @@ create.scatterplot(
         xlimits = c(-2,2),
         xat = log(c(0.15, 0.5, 1, 2.5, 8)),
         xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_her2_thresholds_mhcflurry_scatterplot.pdf'),
+        filename = paste0(date, '_her2_thresholds_mhcflurry_scatterplot.png'),
         xlab.label = 'Odds Ratio',
         ylab.label = 'Rank Thresholds',
         ylimits = c(0.5, nrow(flurryres)+0.5),

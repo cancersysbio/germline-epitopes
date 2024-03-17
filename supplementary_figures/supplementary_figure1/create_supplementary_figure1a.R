@@ -4,11 +4,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in allele accuracy
 alleles <- read.delim(
-	'tcga_cookhla_hla_alleles_imputation_accuracy.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'tcga_cookhla_hla_alleles_imputation_accuracy.txt'),
 	as.is = TRUE
 	)
 alleles$index <- 1:nrow(alleles)

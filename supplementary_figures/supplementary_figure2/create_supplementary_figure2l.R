@@ -5,6 +5,11 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST SUBTYPE ASSOCIATION ######################################################################
 run_dcis_subtype_associations <- function(dtf, subtype, gene = NULL) {
@@ -52,7 +57,7 @@ run_dcis_subtype_associations <- function(dtf, subtype, gene = NULL) {
 ### MAIN ##########################################################################################
 # read in summary data
 dcis <- read.delim(
-	'dcis_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables', 'dcis_megatable.txt'), 
 	as.is = TRUE
 	)
 # test subtype association 
@@ -78,7 +83,7 @@ create.scatterplot(
         main.cex = 2,
         abline.v = 0,
         key = NULL,
-        filename = paste0(date, '_dcis_scatterplot.pdf'),
+        filename = paste0(date, '_dcis_scatterplot.png'),
         width = 8,
         height = 3,
         x.error.right = dcis_data_subtype$u95-dcis_data_subtype$coef,

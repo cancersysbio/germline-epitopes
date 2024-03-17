@@ -6,6 +6,12 @@
 library(BoutrosLab.plotting.general)
 library(metafor)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### TEST SUBTYPE ASSOCIATION ######################################################################
 run_subtype_associations <- function(dtf, subtype, gene = NULL) {
@@ -61,7 +67,7 @@ run_subtype_associations <- function(dtf, subtype, gene = NULL) {
 ### MAIN ##########################################################################################
 # read in summary data
 hartwig <- read.delim(
-	'hartwig_megatable.txt', 
+	file.path(main_repo_path, 'data', 'cohort_megatables','hartwig_megatable.txt'), 
 	as.is = TRUE
 	)
 
@@ -79,7 +85,7 @@ create.scatterplot(
         data = plot_data_subtype,
         horizontal = TRUE,
         xlimits = c(-2,2),
-        filename = paste0(date, '_hartwig_scatterplot.pdf'),
+        filename = paste0(date, '_hartwig_scatterplot.png'),
         xat = c(log(c(0.2,0.5)),0, log(c(2,6))),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '6.0'),
         xlab.label = 'Odds Ratio',

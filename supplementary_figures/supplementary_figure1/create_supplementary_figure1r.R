@@ -4,11 +4,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in snps 
 snps <- read.delim(
-	'gwas_snps_summary_stats.txt',
+	file.path(main_repo_path, 'data', '/auxiliary_data', 'gwas_snps_summary_stats.txt'),
 	as.is = TRUE
 	)
 snps <- snps[order(snps$beta.Gwas),]

@@ -4,8 +4,14 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
-date <- Sys.Date()
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
+
+date <- Sys.Date()
 ### CREATE MAF SCATTERPLOT ########################################################################
 create_maf_scatterplot <- function(mafs, filename, xlab.label) {
        create.scatterplot(
@@ -45,7 +51,7 @@ create_hla_scatterplot <- function(freq, filename) {
         pop <- list()
         for (allele in c('A','B','C')) {
                 pop[[allele]] <- read.csv(
-                        paste0("population_hla_", tolower(allele), "_frequencies.csv"),
+                        file.path(main_repo_path, 'data', 'mafs', paste0("population_hla_", tolower(allele), "_frequencies.csv")),
                         as.is = TRUE
                         )
         }
@@ -90,7 +96,7 @@ create_hla_scatterplot <- function(freq, filename) {
 ### SUPPLEMENTARY FIGURE 2C #######################################################################
 # read in maf in tcga 
 imafs <- read.delim(
-	'icgc_maf_gnomad.txt',
+	file.path(main_repo_path, 'data', 'mafs', 'icgc_maf_gnomad.txt'),
 	as.is = TRUE
 	)
 
@@ -101,7 +107,7 @@ create_maf_scatterplot(mafs = imafs, filename = paste0(date, '_gnomad_icgc_scatt
 ### SUPPLEMENTARY FIGURE 2D #######################################################################
 # read in maf in tcga 
 mmafs <- read.delim(
-    'metabric_maf_gnomad.txt',
+    file.path(main_repo_path, 'data', 'mafs', 'metabric_maf_gnomad.txt'),
     as.is = TRUE
     )
 
@@ -112,7 +118,7 @@ create_maf_scatterplot(mafs = mmafs, filename = paste0(date, '_gnomad_metabric_s
 ### SUPPLEMENTARY FIGURE 2J #######################################################################
 # read in maf in tcga 
 dmafs <- read.delim(
-    'dcis_maf_gnomad.txt',
+    file.path(main_repo_path, 'data', 'mafs', 'dcis_maf_gnomad.txt'),
     as.is = TRUE
     )
 
@@ -122,19 +128,28 @@ create_maf_scatterplot(mafs = dmafs, filename = paste0(date, '_gnomad_dcis_scatt
 
 #### SUPPLEMENTARY FIGURE 2E ######################################################################
 # read in tcga icgc frequencies 
-icgc_freq <- read.delim('icgc_hla_frequencies.txt', as.is = TRUE)
+icgc_freq <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs','icgc_hla_frequencies.txt'), 
+    as.is = TRUE
+    )
 # create scatterplot
 create_hla_scatterplot(icgc_freq, filename = paste0(date, '_icgc_hla_frequencies_scatterplot.png'))
 
 
 #### SUPPLEMENTARY FIGURE 2F ######################################################################
 # read in metabric hla frequencies 
-metabric_freq <- read.delim('metabric_hla_frequencies.txt', as.is = TRUE)
+metabric_freq <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs','metabric_hla_frequencies.txt'), 
+    as.is = TRUE
+    )
 # create scatterplot
 create_hla_scatterplot(metabric_freq, filename = paste0(date, '_metabric_hla_frequencies_scatterplot.png'))
 
 #### SUPPLEMENTARY FIGURE 2K ######################################################################
 # read in dcis hla frequencies 
-dcis_freq <- read.delim('dcis_hla_frequencies.txt', as.is = TRUE)
+dcis_freq <- read.delim(
+    file.path(main_repo_path, 'data', 'mafs','dcis_hla_frequencies.txt'), 
+    as.is = TRUE
+    )
 # create scatterplot
 create_hla_scatterplot(dcis_freq, filename = paste0(date, '_dcis_hla_frequencies_scatterplot.png'))

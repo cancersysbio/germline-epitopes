@@ -4,13 +4,14 @@
 
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
-library(argparse)
 library(plyr)
-library(vcfR)
-library(bedr)
+
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
 
 date <- Sys.Date()
-
 ### REFORMAT ANTIGENS ##############################################################################
 reformat_antigens <- function(readsdf, antigens, gene, chr, pos, thresholds = c(0.2, 0.8)) {
 	# set base direcotry and snp
@@ -41,11 +42,14 @@ reformat_antigens <- function(readsdf, antigens, gene, chr, pos, thresholds = c(
 ### ERBB2 #########################################################################################
 # identify samples with low and high alt allele counts
 erbb2_readsdf <- read.delim(
-	'erbb2_snp_read_depths.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'erbb2_snp_read_depths.txt'),
 	as.is = TRUE
 	)
 # read in antigens generated from run_antigen_garnish.R
-erbb2_antigens <- read.delim('erbb2_snp_peptides.txt', as.is = TRUE)
+erbb2_antigens <- read.delim(
+	file.path(main_repo_path, 'data', 'auxiliary_data','erbb2_snp_peptides.txt'), 
+	as.is = TRUE
+	)
 erbb2_antigens <- reformat_antigens(erbb2_readsdf, antigens = erbb2_antigens, 
 	gene = 'ERBB2', chr = 17, pos = 39727784, thresholds = c(0.4, 0.6))
 
@@ -62,7 +66,7 @@ stats <- wilcox.test(
 	)
 pvalue <- scientific.notation(stats$p.value, digits = 2, type = 'list');
 main <- 'ERBB2|rs1058808'
-filename <- paste0(date, '_ERBB2_rs1058808_antigen_median_boxplot.pdf')
+filename <- paste0(date, '_ERBB2_rs1058808_antigen_median_boxplot.png')
 
 # create barplot
 create.boxplot(
@@ -106,11 +110,14 @@ create.boxplot(
 ### TUBD1 ##########################################################################################
 # identify samples with low and high alt allele counts
 tubd1_readsdf <- read.delim(
-	'tubd1_snp_read_depths.txt',
+	file.path(main_repo_path, 'data', 'auxiliary_data','tubd1_snp_read_depths.txt'),
 	as.is = TRUE
 	)
 # read in antigens generated from run_antigen_garnish.R
-tubd1_antigens <- read.delim('tubd1_snp_peptides.txt', as.is = TRUE)
+tubd1_antigens <- read.delim(
+	file.path(main_repo_path, 'data', 'auxiliary_data','tubd1_snp_peptides.txt'), 
+	as.is = TRUE
+	)
 tubd1_antigens <- reformat_antigens(tubd1_readsdf, antigens = tubd1_antigens, 
 	gene = 'TUBD1', chr = 17, pos = 59886176, thresholds = c(0.4, 0.6))
 
@@ -127,7 +134,7 @@ stats <- wilcox.test(
 	)
 pvalue <- scientific.notation(stats$p.value, digits = 2, type = 'list');
 main <- 'TUBD1|rs1292053'
-filename <- paste0(date, '_TUBD1_rs1292053_median_antigen_boxplot.pdf')
+filename <- paste0(date, '_TUBD1_rs1292053_median_antigen_boxplot.png')
 
 # create barplot
 create.boxplot(
@@ -137,8 +144,6 @@ create.boxplot(
 	xlab.label = 'Allele Amplified',
 	xaxis.lab = c('Alt','Ref'),
 	ylab.label = 'Median Differential binding\n(Alt binding strength)',
-	#yat = seq(-0.5,2,0.5),
-	#ylimits = c(-1,2.2),
 	main = main,
 	main.cex = 2,
 	filename = filename,
