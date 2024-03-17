@@ -6,7 +6,7 @@
 library(BoutrosLab.plotting.general) 
 
 # Set the main path for repo
-main_repo_path <- "/Users/khoulaha/git/germline-epitopes"
+main_repo_path <- ""
 if ((!exists("main_repo_path")) | main_repo_path == "") {
   stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
 }

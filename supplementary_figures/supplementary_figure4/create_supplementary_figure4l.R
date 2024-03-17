@@ -6,7 +6,7 @@ library(BoutrosLab.plotting.general)
 library(tidyr)
 
 # Set the main path for repo
-main_repo_path <- "/Users/khoulaha/git/germline-epitopes"
+main_repo_path <- ""
 if ((!exists("main_repo_path")) | main_repo_path == "") {
   stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
 }
@@ -14,31 +14,19 @@ if ((!exists("main_repo_path")) | main_repo_path == "") {
 date <- Sys.Date()
 ### MAIN ##########################################################################################
 # read in METABRIC IMC data
-imc <- read.csv(
-	file.path(main_repo_path, 'data', 'auxiliary_data', 'Ali_Nat_Cancer_2020_single_cell_data.csv'),
+# calculated proportions of each cell type
+# grouped the following as cancer cells: 'Basal CKlow','HER2+','HR- CK7-','HR- CK7+','HR- CKlow CK5+',
+	#'HR- Ki67+','HR+ CK7-','HR+ CK7- Ki67+',
+	#'HR+ CK7- Slug+','HRlow CKlow','Hypoxia'
+imc_prop <- read.delim(
+	file.path(main_repo_path, 'data', 'auxiliary_data', 'metabric_imc_proportions.txt'),
 	as.is = TRUE
 	)
-
-# group cell types
-cancer <- c('Basal CKlow','HER2+','HR- CK7-','HR- CK7+','HR- CKlow CK5+','HR- Ki67+','HR+ CK7-','HR+ CK7- Ki67+',
-	'HR+ CK7- Slug+','HRlow CKlow','Hypoxia')
-
 # read in summary data
 metabric <- read.delim(
 	file.path(main_repo_path, 'data', 'cohort_megatables', 'metabric_megatable.txt'),
 	as.is = TRUE
 	)
-imc <- imc[imc$metabricId %in%  metabric$sample,]
-
-# merge cell types
-imc[imc$description %in% cancer,'description'] <- 'cancer'
-# calculate proportions 
-imc_prop <- as.data.frame(table(imc[,c('metabricId','description')]))
-imc_prop$proportion <- NA
-for (i in unique(imc_prop$metabricId)) {
-	imc_prop[imc_prop$metabricId == i,'proportion'] <- imc_prop[imc_prop$metabricId == i,'Freq']/sum(imc_prop[imc_prop$metabricId == i,'Freq'])
-}
-colnames(imc_prop) <- c('sample','celltype','frequency','proportion')
 
 ## HER2 ## 
 meta_her2 <- metabric[which(metabric$CLAUDIN_SUBTYPE == 'Her2'),]
