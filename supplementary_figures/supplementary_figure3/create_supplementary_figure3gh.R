@@ -4,11 +4,17 @@
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
 
+# Set the main path for repo
+main_repo_path <- ""
+if ((!exists("main_repo_path")) | main_repo_path == "") {
+  stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
+}
+
 date <- Sys.Date()
 ### SUPPLEMENTARY FIGURE 3G #######################################################################
 # read in tcga and hartwig frequencies 
-tcga <- read.delim('tcga_hla_frequencies.txt', as.is = TRUE)
-hartwig <- read.delim('hartwig_hla_frequencies.txt', as.is = TRUE)
+tcga <- read.delim(file.path(main_repo_path, 'data', 'mafs','tcga_hla_frequencies.txt'), as.is = TRUE)
+hartwig <- read.delim(file.path(main_repo_path, 'data', 'mafs','hartwig_hla_frequencies.txt'), as.is = TRUE)
 
 th_plot_data <- merge(tcga, hartwig, by = 'allele', all = TRUE)
 colnames(th_plot_data) <- c('allele','tcga','hartwig')
@@ -49,7 +55,7 @@ create.scatterplot(
 
 #### SUPPLEMENTARY FIGURE 3H ######################################################################
 # read in icgc 
-icgc <- read.delim('icgc_hla_frequencies.txt', as.is = TRUE)
+icgc <- read.delim(file.path(main_repo_path, 'data', 'mafs','icgc_hla_frequencies.txt'), as.is = TRUE)
 
 # merge 
 ih_plot_data <- merge(icgc, hartwig, by = 'allele', all = TRUE)
