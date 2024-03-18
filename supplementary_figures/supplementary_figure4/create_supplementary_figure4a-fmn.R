@@ -37,7 +37,7 @@ format_immune_cell_plot_data <- function(dtf, subtype, gene = NULL, feature, fil
 	return(plot_data)
 	}
 
-create_immune_boxplot <- function(dtf, feature, ylimits, yat, ylab.label, text.y) {
+create_immune_boxplot <- function(dtf, feature, ylimits, yat, ylab.label, text.y, filename) {
 	plot_data_cell_boxplot <- rbind(
 		format_immune_cell_plot_data(tcga, subtype = 'HER2', feature = feature),
 		format_immune_cell_plot_data(tcga, subtype = 'ER',feature = feature)
