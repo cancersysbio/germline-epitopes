@@ -174,7 +174,7 @@ create.boxplot(
         coef ~ type,
         data = plot_data_control,
         add.stripplot = TRUE,
-        filename = paste0(date, '_nonexpressed_keratin_vs_subtype_coefficients_boxplot.png'),
+        filename = paste0(date, '_supplementary_figure1v.png'),
         resolution = 300,
         ylimits = c(-1.1,1.1),
         yat = seq(-1, 1, 0.5),

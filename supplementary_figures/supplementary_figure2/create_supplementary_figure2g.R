@@ -202,7 +202,7 @@ create.scatterplot(
         text.labels = paste0('n=', plot_data_subtype$number_subtype),
         text.x = 1,
         text.y = 1:nrow(plot_data_subtype),
-        filename = paste0(date, '_icgc_metabric_gel_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure2g.png'),
         legend = list(
                 right = list(fun = cov.grob),
                 inside = list(fun = cov.legend.grob, corner = c(1,0), x = 0.99, y = 0.01)

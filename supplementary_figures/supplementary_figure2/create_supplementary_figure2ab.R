@@ -25,7 +25,7 @@ ipc2_threshold <- min(iplot_data[iplot_data$ancestry == 'EUR','PC2'])-0.2
 create.scatterplot(
 	PC2 ~ PC1,
 	data = iplot_data,
-	filename = paste0(date, '_ICGC_PCA_scatterplot.png'),
+	filename = paste0(date, '_supplementary_figure2a.png'),
 	groups = iplot_data$ancestry,
 	abline.h = ipc2_threshold,
 	abline.v = ipc1_threshold,
@@ -63,7 +63,7 @@ mpc2_threshold <- min(mplot_data[mplot_data$ancestry == 'EUR','PC2'])-0.2
 create.scatterplot(
 	PC2 ~ PC1,
 	data = mplot_data,
-	filename = paste0(date, '_METABRIC_PCA_scatterplot.png'),
+	filename = paste0(date, '_supplementary_figure2b.png'),
 	groups = mplot_data$ancestry,
 	abline.h = mpc2_threshold,
 	abline.v = mpc1_threshold,

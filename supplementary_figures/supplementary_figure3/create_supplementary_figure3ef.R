@@ -60,7 +60,7 @@ create.scatterplot(
         add.xyline = TRUE,
         ylab.label = 'Hartwig',
         xlab.label = 'TCGA',
-        filename = paste0(date, '_tcga_hartwig_maf_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3e.png'),
         legend = list(
              inside = list(
                      fun = draw.key,
@@ -105,7 +105,7 @@ create.scatterplot(
     xlimits = c(0,0.5),
     yat = seq(0,0.4,0.1),
     xat = seq(0,0.4,0.1),
-    filename = paste0(date, '_icgc_hartwig_maf_scatterplot.png'),
+    filename = paste0(date, '_supplementary_figure3f.png'),
     add.xyline = TRUE,
     legend = list(
              inside = list(

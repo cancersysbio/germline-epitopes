@@ -45,7 +45,7 @@ create.barplot(
 	main = paste0('TCGA HER2+\n(n=', nrow(meta_her2), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_HER2_TME_barplot.png'),
+	filename = paste0(date, '_supplementary_figure4g.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(
@@ -117,7 +117,7 @@ create.barplot(
 	main = paste0('TCGA ER+\n(n=', nrow(meta_er), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_ER_TME_barplot.png'),
+	filename = paste0(date, '_supplementary_figure4h.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(

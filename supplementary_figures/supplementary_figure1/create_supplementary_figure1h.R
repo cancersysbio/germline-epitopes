@@ -103,18 +103,11 @@ tcga <- read.delim(
         as.is = TRUE
         )
 # read in cna
-# downloaded from https://gdc.cancer.gov/about-data/publications/pancanatlas
-cnafile <- file.path('data', 'auxiliary_data', 'TCGA_mastercalls.abs_segtabs.fixed.txt')
-if (!file.exists(cnafile)) {
-  stop("Error: Please download tcga cna segment file from https://gdc.cancer.gov/about-data/publications/pancanatlas and put in auxiliary_data folder")
-} 
+cnafile <- file.path(main_repo_path, 'data', 'auxiliary_data', 'tcga_cna_segments_chr6.txt')
 cna <- read.delim(
         cnafile,
         as.is = TRUE
         )
-cna$sample <- substr(cna$Sample, 1, 12)
-cna <- cna[cna$sample %in% tcga$sample,]
-cna <- cna[!is.na(cna$Chromosome),]
 
 # remove met sample 
 hla_cna <- find_hla_cn(cna)
@@ -133,7 +126,7 @@ plot_data_subtype_hla$experiment <- 'hla'
 
 # read in cn calls as 2+ploidy
 cn_2ploidy <- read.delim(
-        'tcga_cn_2ploidy.txt',
+        file.path(main_repo_path, 'data', 'auxiliary_data', 'tcga_cn_2ploidy.txt'),
         as.is = TRUE
         )
 
@@ -186,7 +179,7 @@ create.scatterplot(
         data = plot_data_subtype,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_TCGA_HLA_corrected_ploidy_scatterplot.pdf'),
+        filename = paste0(date, '_supplementary_figure1h.png'),
         xat = log(c(0.2, 0.5, 1, 2, 5)),
         xaxis.lab = c('0.2','0.5','1.0','2.0','5.0'),
         xlab.label = 'Odds Ratio',

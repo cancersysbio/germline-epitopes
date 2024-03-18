@@ -119,7 +119,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-2,2),
-        filename = paste0(date, '_e75_gp2_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure1b.png'),
         xat = log(c(0.5, 1, 2.5)),
         xaxis.lab = c(0.5, 1, 2.5),
         xlab.label = 'Odds Ratio',

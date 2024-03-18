@@ -68,5 +68,5 @@ tcga <- read.delim(
 # create conintency table with pam50
 tcga$bds <- sign(tcga$ERBB2)
 tcga$subtype <- (tcga$pam50 == 'Her2')*1
-create_contingency_multiplot(tcga, filename = paste0(date, '_her2_ratio_barplot.pdf'), 
+create_contingency_multiplot(tcga, filename = paste0(date, '_figure1e.png'), 
         ylimits = c(0, 0.15), yat = seq(0, 0.15, 0.05), text.y = c(0.14, 0.13))

@@ -125,7 +125,7 @@ create.scatterplot(
         data = meta_plot_data,
         horizontal = TRUE,
         xlimits = c(-2,2),
-        filename = paste0(date, '_primary_vs_met_meta_scatterplot.pdf'),
+        filename = paste0(date, '_figure3b.png'),
         xat = c(log(c(0.2,0.5)),0, log(c(2,6))),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '6.0'),
         xlab.label = '',

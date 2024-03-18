@@ -80,7 +80,7 @@ create.scatterplot(
         data = plot_data_subtype,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_TCGA_only_scatterplot.pdf'),
+        filename = paste0(date, '_figure1g.png'),
         xat = log(c(0.2, 0.5, 1, 2, 5)),
         xaxis.lab = c('0.2','0.5','1.0','2.0','5.0'),
         xlab.label = 'Odds Ratio',

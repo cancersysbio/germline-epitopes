@@ -101,7 +101,7 @@ imafs <- read.delim(
 	)
 
 # create maf scatterplot
-create_maf_scatterplot(mafs = imafs, filename = paste0(date, '_gnomad_icgc_scatterplot.png'),
+create_maf_scatterplot(mafs = imafs, filename = paste0(date, '_supplementary_figure2c.png'),
     xlab.label = 'ICGC')
 
 ### SUPPLEMENTARY FIGURE 2D #######################################################################
@@ -112,7 +112,7 @@ mmafs <- read.delim(
     )
 
 # create maf scatterplot
-create_maf_scatterplot(mafs = mmafs, filename = paste0(date, '_gnomad_metabric_scatterplot.png'),
+create_maf_scatterplot(mafs = mmafs, filename = paste0(date, '_supplementary_figure2d.png'),
     xlab.label = 'METABRIC')
 
 ### SUPPLEMENTARY FIGURE 2J #######################################################################
@@ -123,7 +123,7 @@ dmafs <- read.delim(
     )
 
 # create maf scatterplot
-create_maf_scatterplot(mafs = dmafs, filename = paste0(date, '_gnomad_dcis_scatterplot.png'),
+create_maf_scatterplot(mafs = dmafs, filename = paste0(date, '_supplementary_figure2j.png'),
     xlab.label = 'DCIS')
 
 #### SUPPLEMENTARY FIGURE 2E ######################################################################
@@ -133,7 +133,7 @@ icgc_freq <- read.delim(
     as.is = TRUE
     )
 # create scatterplot
-create_hla_scatterplot(icgc_freq, filename = paste0(date, '_icgc_hla_frequencies_scatterplot.png'))
+create_hla_scatterplot(icgc_freq, filename = paste0(date, '_supplementary_figure2e.png'))
 
 
 #### SUPPLEMENTARY FIGURE 2F ######################################################################
@@ -143,7 +143,7 @@ metabric_freq <- read.delim(
     as.is = TRUE
     )
 # create scatterplot
-create_hla_scatterplot(metabric_freq, filename = paste0(date, '_metabric_hla_frequencies_scatterplot.png'))
+create_hla_scatterplot(metabric_freq, filename = paste0(date, '_supplementary_figure2f.png'))
 
 #### SUPPLEMENTARY FIGURE 2K ######################################################################
 # read in dcis hla frequencies 
@@ -152,4 +152,4 @@ dcis_freq <- read.delim(
     as.is = TRUE
     )
 # create scatterplot
-create_hla_scatterplot(dcis_freq, filename = paste0(date, '_dcis_hla_frequencies_scatterplot.png'))
+create_hla_scatterplot(dcis_freq, filename = paste0(date, '_supplementary_figure2k.png'))

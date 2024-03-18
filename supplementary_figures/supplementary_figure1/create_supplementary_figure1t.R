@@ -54,7 +54,7 @@ create.barplot(
         text.x = c(1,3.5,7.5,11),
         text.y = 38,
         xaxis.fontface = 4,
-        filename = paste0(date, '_pathogenic_benign_variants_barplot.png'),
+        filename = paste0(date, '_supplementary_figure1t.png'),
         legend = list(
              inside = list(
                  fun = draw.key,

@@ -113,6 +113,6 @@ tcga_hlas_both$hla <- (tcga_hlas_both$hla >= median(tcga_hlas_both$hla))*1
 tcga_hlas_both$subtype <- (tcga_hlas_both$HER2.newly.derived == 'Positive')*1
 
 # create barplot
-create_gp2_barplot(tcga_hlas_both, filename = paste0(date, '_gp2_barplot.png'))
+create_gp2_barplot(tcga_hlas_both, filename = paste0(date, '_figure1c.png'))
 
 

@@ -24,7 +24,7 @@ create.scatterplot(
         yat = seq(0,0.3,0.1),
         xat = seq(0,0.3,0.1),
         add.xyline = TRUE,
-        filename = paste0(date, '_tcga_vs_hartwig_HLA_frequency_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3g.png'),
         ylab.label = 'Hartwig',
         xlab.label = 'TCGA',
         legend = list(
@@ -66,7 +66,7 @@ create.scatterplot(
         yat = seq(0,0.3,0.1),
         xat = seq(0,0.3,0.1),
         add.xyline = TRUE,
-        filename = paste0(date, '_icgc_vs_hartwig_HLA_frequency_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3h.png'),
         ylab.label = 'Hartwig',
         xlab.label = 'ICGC',
         legend = list(

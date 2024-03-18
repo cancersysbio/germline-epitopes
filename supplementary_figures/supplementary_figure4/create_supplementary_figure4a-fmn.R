@@ -12,7 +12,7 @@ if ((!exists("main_repo_path")) | main_repo_path == "") {
 
 date <- Sys.Date()
 ### IMMUNE ########################################################################################
-format_immune_cell_plot_data <- function(dtf, subtype, gene = NULL, feature) {
+format_immune_cell_plot_data <- function(dtf, subtype, gene = NULL, feature, filename) {
 	if (subtype == 'HER2') {
 		dtf$bds <- sign(dtf$ERBB2)
 		dtf_st <- dtf[dtf$pam50 == 'Her2',]
@@ -70,7 +70,7 @@ create_immune_boxplot <- function(dtf, feature, ylimits, yat, ylab.label, text.y
 		data = plot_data_cell_boxplot,
 		add.stripplot = TRUE,
 		ylab.label = ylab.label,
-		filename = paste0(date, '_', feature, '_boxplot.png'),
+		filename = filename,
 		xaxis.lab = rep(c('Low','High'), 3),
 		ylimits = ylimits,
 		yat = yat,
@@ -107,42 +107,50 @@ tcga <- read.delim(
 # create lymphocytes plot
 create_immune_boxplot(dtf = tcga, 
 	feature = 'Lymphocytes', ylimits = c(0,1), yat = seq(0,1,0.2), 
-	ylab.label = 'Lymphocytes', text.y = c(rep(0.98,2), rep(0.9, 2)))
+	ylab.label = 'Lymphocytes', text.y = c(rep(0.98,2), rep(0.9, 2)),
+	filename = paste0(date, '_supplementary_figure4a.png'))
 
 # create CD8+ T cells plot
 create_immune_boxplot(dtf = tcga, 
 	feature = 'T.cells.CD8', ylimits = c(-0.03,0.4), yat = seq(0,0.4,0.1), 
-	ylab.label = 'CD8+ T Cells', text.y = c(rep(0.39,2), rep(0.35, 2)))
+	ylab.label = 'CD8+ T Cells', text.y = c(rep(0.39,2), rep(0.35, 2)),
+	filename = paste0(date, '_supplementary_figure4b.png'))
 
 # create cytotoxic score plot
 create_immune_boxplot(dtf = tcga, 
 	feature = 'cytotoxic_score', ylimits = c(0,1000), yat = seq(0,1000,500), 
-	ylab.label = 'Cytotoxic Score', text.y = c(rep(970,2), rep(900, 2)))
+	ylab.label = 'Cytotoxic Score', text.y = c(rep(970,2), rep(900, 2)),
+	filename = paste0(date, '_supplementary_figure4c.png'))
 
 # create macrophages plot
 create_immune_boxplot(dtf = tcga, 
 	feature = 'Macrophages', ylimits = c(0,1), yat = seq(0,1,0.2), 
-	ylab.label = 'Macrophages', text.y = c(rep(0.98,2), rep(0.9, 2)))
+	ylab.label = 'Macrophages', text.y = c(rep(0.98,2), rep(0.9, 2)),
+	filename = paste0(date, '_supplementary_figure4d.png'))
 
 # create macrophages M2 plot
 create_immune_boxplot(dtf = tcga, 
 	feature = 'Macrophages.M2', ylimits = c(0,0.8), yat = seq(0,1,0.2), 
-	ylab.label = 'Macrophages M2-like', text.y = c(rep(0.78,2), rep(0.71, 2)))
+	ylab.label = 'Macrophages M2-like', text.y = c(rep(0.78,2), rep(0.71, 2)),
+	filename = paste0(date, '_supplementary_figure4e.png'))
 
 # create macrophages M1 plot
 create_immune_boxplot(dtf = tcga, 
 	feature = 'Macrophages.M1', ylimits = c(-0.03,0.24), yat = seq(0,0.3,0.1), 
-	ylab.label = 'Macrophages M1-like', text.y = c(rep(0.23,2), rep(0.21, 2)))
+	ylab.label = 'Macrophages M1-like', text.y = c(rep(0.23,2), rep(0.21, 2)),
+	filename = paste0(date, '_supplementary_figure4f.png'))
 
 # create mhc class I presentation
 create_immune_boxplot(dtf = tcga, 
 	feature = 'MHC1_21978456', ylimits = c(-2.5,1.7), yat = seq(-2,2,1), 
-	ylab.label = 'MHC Class I Presentation', text.y = c(rep(1.6,2), rep(1.3, 2)))
+	ylab.label = 'MHC Class I Presentation', text.y = c(rep(1.6,2), rep(1.3, 2)),
+	filename = paste0(date, '_supplementary_figure4m.png'))
 
 
 # create mhc class I presentation
 create_immune_boxplot(dtf = tcga, 
 	feature = 'APM1', ylimits = c(0.3,0.57), yat = seq(0.3,0.5,0.1), 
-	ylab.label = 'MHC Class I Presentation', text.y = c(rep(0.56,2), rep(0.54, 2)))
+	ylab.label = 'MHC Class I Presentation', text.y = c(rep(0.56,2), rep(0.54, 2)),
+	filename = paste0(date, '_supplementary_figure4n.png'))
 
 

@@ -47,7 +47,7 @@ create.barplot(
 	main = paste0('METABRIC HER2+\n(n=', nrow(meta_her2), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_METABRIC_HER2_TME_barplot.png'),
+	filename = paste0(date, '_supplementary_figure4i.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(
@@ -118,7 +118,7 @@ create.barplot(
 	main = paste0('METABRIC ER+\n(n=', nrow(meta_er), ')'),
 	main.cex = 1.5,
 	ylab.label = 'Proportion of Samples',
-	filename = paste0(date, '_METABRIC_ER_TME_barplot.png'),
+	filename = paste0(date, '_supplementary_figure4j.png'),
 	stack = TRUE,
 	key = NULL,
 	legend = list(
@@ -226,7 +226,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-0.8,0.8),
-        filename = paste0(date, '_metabric_immune_sig_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure4k.png'),
         xlab.label = 'Coefficient',
         ylab.label = '',
         yaxis.lab = c(paste0('ER+ \n(n=', nrow(meta_er), ')'),paste0('HER2+ \n(n=', nrow(meta_her2), ')')),

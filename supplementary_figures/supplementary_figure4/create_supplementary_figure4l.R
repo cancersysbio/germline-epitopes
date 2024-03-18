@@ -102,7 +102,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-3,3),
-        filename = paste0(date, '_metabric_imc_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure4l.png'),
         xlab.label = 'Coefficient',
         ylab.label = '',
         yaxis.lab = c('ER+','HER2+'),

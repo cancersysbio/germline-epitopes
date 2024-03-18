@@ -11,7 +11,7 @@ if ((!exists("main_repo_path")) | main_repo_path == "") {
 }
 
 date <- Sys.Date()
-### TCGA ##########################################################################################
+### MAIN ##########################################################################################
 # read in summary data
 tcga <- read.delim(
         file.path(main_repo_path, 'data', 'cohort_megatables','tcga_megatable.txt'),
@@ -33,7 +33,7 @@ create.boxplot(
         bds ~ subtype,
         data = tcga,
         add.stripplot = TRUE,
-        filename = paste0(date, '_HER2_boxplot.png'),
+        filename = paste0(date, '_supplementary_figure1f.png'),
         ylab.label = 'Average Binders',
         xlab.label = 'Subtype',
         xaxis.lab = c('HER2-','HER2+'),

@@ -54,7 +54,7 @@ create.scatterplot(
         xlimits = c(-2,2),
         xat = log(c(0.15, 0.5, 1, 2.5, 8)),
         xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_her2_thresholds_mhcflurry_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure1j.png'),
         xlab.label = 'Odds Ratio',
         ylab.label = 'Rank Thresholds',
         ylimits = c(0.5, nrow(flurryres)+0.5),

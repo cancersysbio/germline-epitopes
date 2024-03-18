@@ -47,7 +47,7 @@ create.scatterplot(
         xlimits = c(-1.5,1.5),
         xat = log(c(0.15, 0.5, 1, 2.5, 8)),
         xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_her2_thresholds_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure1i.png'),
         xlab.label = 'Odds Ratio',
         ylab.label = 'Rank Thresholds',
         ylimits = c(0.5, nrow(res)+0.5),

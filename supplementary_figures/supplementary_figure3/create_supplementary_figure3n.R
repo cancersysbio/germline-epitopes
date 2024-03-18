@@ -187,7 +187,7 @@ create.scatterplot(
         data = plot_data,
         ylimits = c(-2.5,2.5),
         #ylimits = c(-0.1,0.1),
-        filename = paste0(date, '_meta_analysis_clinical_features_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3n.png'),
         ylab.label = 'Coefficient',
         xlab.label = '',
         xaxis.lab = rep(c('Stage','Age','Lymph Node'),2),

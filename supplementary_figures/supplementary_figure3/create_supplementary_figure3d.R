@@ -85,7 +85,7 @@ create.scatterplot(
         data = plot_data_subtype,
         horizontal = TRUE,
         xlimits = c(-2,2),
-        filename = paste0(date, '_hartwig_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3d.png'),
         xat = c(log(c(0.2,0.5)),0, log(c(2,6))),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '6.0'),
         xlab.label = 'Odds Ratio',

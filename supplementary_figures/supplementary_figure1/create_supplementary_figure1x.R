@@ -66,5 +66,5 @@ tcga <- read.delim(
 # create conintency table with pam50
 tcga$bds <- rowSums(sign(tcga[,c('FOXC1','MIA','MELK')]))
 tcga$subtype <- (tcga$pam50 == 'Basal')*1
-create_contingency_multiplot(tcga, filename = paste0(date, '_tnbc_ratio_barplot.png'), 
+create_contingency_multiplot(tcga, filename = paste0(date, '_supplementary_figure1x.png'), 
         ylimits = c(0, 0.3), yat = seq(0, 0.3, 0.1), text.y = c(0.29, 0.27))

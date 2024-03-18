@@ -64,7 +64,7 @@ meta_her2[meta_her2$OS_MONTHS > 60,'event'] <- 0
 meta_her2[meta_her2$OS_MONTHS > 60,'OS_MONTHS'] <- 60
 fit1 <- survfit(Surv(OS_MONTHS,event)~bds,meta_her2)
 family_type <- 'sans'
-pdf(paste0(date, '_metabric_her2_survival_KM.pdf'))
+pdf(paste0(date, '_figure3d.pdf'))
 ggsurvplot(fit1, data = meta_her2, pval = F, conf.int = F, risk.table = TRUE,
 	   palette = c("#8fbdd9ff", "#fa8c57ff"), legend.labs = c("Low","High"), legend = c(0.8, 0.25), legend.title="",
            xlab = 'Month',
@@ -104,7 +104,7 @@ meta_prog[which(meta_prog$OS_MONTHS > 60),'event'] <- 0
 meta_prog[which(meta_prog$OS_MONTHS > 60),'OS_MONTHS'] <- 60
 fitall <- survfit(Surv(OS_MONTHS,event)~burden,meta_prog)
 family_type <- 'sans'
-pdf(paste0(date, '_metabric_high_risk_survival_KM.pdf'))
+pdf(paste0(date, '_figure3e.pdf'))
 ggsurvplot(fitall, data = meta_prog, pval = F, conf.int = F, risk.table = TRUE,
 	   palette = c("#8fbdd9ff", "#fa8c57ff"), legend.labs = c("Low","High"), legend = c(0.8, 0.25), legend.title="",
            xlab = 'Month',
@@ -190,7 +190,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(0.45,0.85),
-        filename = paste0(date, '_cindex_model_scatterplot.pdf'),
+        filename = paste0(date, '_figure3f.png'),
         xlab.label = 'C-Index',
         ylab.label = 'Model',
         yaxis.lab = rep(c('IntClust','IntClust\nEpitopes'), 2),

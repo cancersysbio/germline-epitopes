@@ -169,7 +169,7 @@ create.scatterplot(
         data = meta_plot_data,
         horizontal = TRUE,
         xlimits = c(-1.4, 1.4),
-        filename = paste0(date, '_meta_scatterplot.pdf'),
+        filename = paste0(date, '_figure1h.png'),
          xat = c(log(c(0.2,0.5)),0, log(c(2,6))),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '6.0'),
         xlab.label = 'Odds Ratio',

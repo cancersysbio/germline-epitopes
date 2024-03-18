@@ -87,7 +87,7 @@ p2 <- create.barplot(
 create.multipanelplot(
 	list(p1, p2),
 	plot.objects.heights = c(0.35,0.65),
-	file = paste0(date, '_icgc_snps_gwas_stats.png'),
+	file = paste0(date, '_supplementary_figure1r.png'),
 	resolution = 300,
 	width = 9,
 	height = 7

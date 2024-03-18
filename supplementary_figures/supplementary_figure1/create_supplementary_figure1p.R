@@ -97,7 +97,7 @@ cov.legend.grob <- legend.grob(
 create.barplot(
 	count ~ index,
 	data = plot_data,
-	filename = paste0(date, '_tcga_subtype_definition_barplot.png'),
+	filename = paste0(date, '_supplementary_figure1p.png'),
 	xaxis.lab = rep('', nrow(plot_data)),
 	ylab.label = 'Number of Samples',
 	ylimits = c(0,160),

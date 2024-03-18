@@ -174,7 +174,7 @@ create.scatterplot(
         data = plot_data_subtype,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_null_compared_real_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure1k.png'),
         xat = c(-2,-1, 0, 1, 2),
         xaxis.lab = c(0.15,0.37, 1, 2.70, 7.40),
         xlab.label = 'Odds Ratio',

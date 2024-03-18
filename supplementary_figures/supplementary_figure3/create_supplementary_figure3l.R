@@ -97,7 +97,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-2,2),
-        filename = paste0(date, '_metabric_hla_adjusted_survival_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3l.png'),
         xlab.label = 'Hazard Ratio',
         ylab.label = 'GEB',
         ylimits = c(0.5, nrow(plot_data)+0.5),

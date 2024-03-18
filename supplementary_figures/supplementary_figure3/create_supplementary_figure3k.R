@@ -71,7 +71,7 @@ create.scatterplot(
         xlimits = c(-0.5,1.7),
         xat = log(c(0.15, 0.5, 1, 2.5, 8)),
         xaxis.lab = c('0.15','0.50','1.00','2.50','8.00'),
-        filename = paste0(date, '_IC_survival_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure3k.png'),
         xlab.label = 'Hazard Ratio',
         ylab.label = 'Subtype',
         ylimits = c(0.5, nrow(plot_data)+0.5),

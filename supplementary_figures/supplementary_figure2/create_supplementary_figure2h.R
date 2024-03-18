@@ -128,7 +128,7 @@ create.scatterplot(
         data = plot_data,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_GEL_ICGC_TCGA_METABRIC_her2_definitions_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure2h.png'),
         xat = c(-2,-1, 0, 1, 2),
         xaxis.lab = c(0.15,0.37, 1, 2.70, 7.40),
         xlab.label = 'Odds Ratio',

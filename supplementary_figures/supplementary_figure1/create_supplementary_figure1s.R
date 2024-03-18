@@ -60,6 +60,6 @@ create.barplot(
                  y = 0.99
                  )
              ),
-	filename = paste0(date, '_common_rare_r2_barplot.png'),
+	filename = paste0(date, '_supplementary_figure1s.png'),
 	resolution = 300
 	)

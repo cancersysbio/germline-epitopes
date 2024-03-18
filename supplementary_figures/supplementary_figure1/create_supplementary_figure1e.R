@@ -48,7 +48,7 @@ create.barplot(
 	Freq ~ subtype,
 	groups = bds,
 	data = plot_data,
-	filename = paste0(date, '_bds_per_regions_barplot.png'),
+	filename = paste0(date, '_supplementary_figure1e.png'),
 	col = default.colours(5, palette.type = 'spiral.afternoon')[c(1,3,5)],
 	ylimits = c(0,650),
 	yat = seq(0,650,100),

@@ -37,7 +37,7 @@ create.barplot(
 	alpha.rectangle = 0.5,
 	xlab.label = 'HLA Alleles',
 	ylab.label = 'Concordance',
-	filename = paste0(date, '_tcga_hla_cookhla_accuracy_barplot.png'),
+	filename = paste0(date, '_supplementary_figure1a.png'),
 	width = 8,
 	height = 5,
 	resolution = 300

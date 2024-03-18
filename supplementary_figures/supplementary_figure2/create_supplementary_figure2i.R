@@ -112,7 +112,7 @@ create.scatterplot(
         main.cex = 2,
         abline.v = 0,
         key = NULL,
-        filename = paste0(date, '_tnbc_replication_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure2i.png'),
         width = 8,
         height = 3,
         add.rectangle = TRUE,

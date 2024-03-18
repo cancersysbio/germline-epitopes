@@ -122,7 +122,7 @@ create.boxplot(
 	cindex ~ group,
 	data = plot_data,
 	add.stripplot = TRUE,
-	filename = paste0(date, '_metabric_prediction_ER_high_HER2_5y_followup_boxplot.png'),
+	filename = paste0(date, '_supplementary_figure3m.png'),
 	ylimits = c(0.54, 0.95),
 	yat = seq(0.6,0.9,0.1),
 	ylab.label = 'C-Index',

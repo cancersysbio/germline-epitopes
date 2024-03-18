@@ -75,7 +75,7 @@ create.barplot(
 	width = 7.5,
 	right.padding = 15,
 	col = c('lavenderblush','lightpink3'),
-	filename = paste0(date, '_TBCRC_epitope_burden_barplot.pdf'),
+	filename = paste0(date, '_figure4e.png'),
 	resolution = 300
 	)
 
@@ -111,7 +111,7 @@ create.boxplot(
 		xlab.label = 'GEB',
 		ylab.label = '%ECAD in myoepithelium',
 		data = dcis,
-		filename = paste0(date, '_DCIS_bds_Myoep_cluster_fracECAD_boxplot.pdf'),
+		filename = paste0(date, '_figure4f.png'),
 		legend = list(
 			inside = list(
 		                 fun = draw.key,

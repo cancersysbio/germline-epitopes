@@ -25,7 +25,7 @@ pc2_threshold <- min(plot_data[plot_data$ancestry == 'EUR','PC2'])-0.2
 create.scatterplot(
 	PC2 ~ PC1,
 	data = plot_data,
-	filename = paste0(date, '_Hartwig_PCA_scatterplot.png'),
+	filename = paste0(date, '_supplementary_figure3c.png'),
 	groups = plot_data$ancestry,
 	abline.h = pc2_threshold,
 	abline.v = pc1_threshold,

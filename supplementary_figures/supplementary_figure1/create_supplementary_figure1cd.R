@@ -22,7 +22,7 @@ allmafs <- read.delim(
 create.scatterplot(
 	gnomad ~ maf,
 	data = allmafs,
-	filename = paste0(date, '_gnomad_tcga_scatterplot.png'),
+	filename = paste0(date, '_supplementary_figure1c.png'),
 	add.xyline = TRUE,
 	ylab.label = 'Gnomad',
 	xlab.label = 'TCGA',
@@ -69,7 +69,7 @@ create_hla_scatterplot <- function(freq) {
                 yat = seq(0,0.3,0.1),
                 xat = seq(0,0.3,0.1),
                 add.xyline = TRUE,
-                filename = paste0(date, '_HLA_frequency_scatterplot.png'),
+                filename = paste0(date, '_supplementary_figure1d.png'),
                 ylab.label = 'Cohort Frequencies',
                 xlab.label = 'Population Frequencies',
                 legend = list(

@@ -66,7 +66,7 @@ stats <- wilcox.test(
 	)
 pvalue <- scientific.notation(stats$p.value, digits = 2, type = 'list');
 main <- 'ERBB2|rs1058808'
-filename <- paste0(date, '_ERBB2_rs1058808_antigen_median_boxplot.png')
+filename <- paste0(date, '_supplementary_figure2o.png')
 
 # create barplot
 create.boxplot(
@@ -134,7 +134,7 @@ stats <- wilcox.test(
 	)
 pvalue <- scientific.notation(stats$p.value, digits = 2, type = 'list');
 main <- 'TUBD1|rs1292053'
-filename <- paste0(date, '_TUBD1_rs1292053_median_antigen_boxplot.png')
+filename <- paste0(date, '_supplementary_figure2p.png')
 
 # create barplot
 create.boxplot(

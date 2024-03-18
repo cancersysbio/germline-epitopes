@@ -13,7 +13,7 @@ if ((!exists("main_repo_path")) | main_repo_path == "") {
 
 date <- Sys.Date()
 ### CREATE READS BARPLOT ##########################################################################
-create_reads_barplot <- function(readsdf, chr, pos, thresholds = c(0.2, 0.8)) {
+create_reads_barplot <- function(readsdf, chr, pos, filename, thresholds = c(0.2, 0.8)) {
 	# reformat plot data
 	readsdf <- readsdf[order(as.numeric(readsdf$tumor_ratio)),]
 	readsdf$index <- 1:nrow(readsdf)
@@ -81,7 +81,7 @@ create_reads_barplot <- function(readsdf, chr, pos, thresholds = c(0.2, 0.8)) {
 			)
 	create.multipanelplot(
 			list(bar1, bar2),
-			filename = paste0(date, '_chr', chr, '_', pos, '_reads_ratio_tumor_barplot.png'),
+			filename = filename,
 			resolution = 300,
 			width = 12
 			)
@@ -96,7 +96,8 @@ erbb2_readsdf <- read.delim(
 create_reads_barplot(
 	readsdf = erbb2_readsdf,
 	chr = 17, 
-	pos = 39727784, 
+	pos = 39727784,
+	filename = paste0(date, 'supplementary_figure2m.png'), 
 	thresholds = c(0.4, 0.6)
 	)
 
@@ -109,6 +110,7 @@ create_reads_barplot(
 	readsdf = tubd1_readsdf,
 	chr = 17, 
 	pos = 59886176, 
+	filename = paste0(date, 'supplementary_figure2n.png'),
 	thresholds = c(0.4, 0.6)
 	)
 

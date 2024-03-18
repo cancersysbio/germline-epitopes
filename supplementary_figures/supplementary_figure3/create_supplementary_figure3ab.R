@@ -100,7 +100,7 @@ hmafs <- read.delim(
 	)
 
 # create maf scatterplot
-create_maf_scatterplot(mafs = hmafs, filename = paste0(date, '_gnomad_hartwig_scatterplot.png'),
+create_maf_scatterplot(mafs = hmafs, filename = paste0(date, '_supplementary_figure3a.png'),
     xlab.label = 'Hartwig')
 
 
@@ -111,6 +111,6 @@ hartwig_freq <- read.delim(
     as.is = TRUE
     )
 # create scatterplot
-create_hla_scatterplot(hartwig_freq, filename = paste0(date, '_hartwig_hla_frequencies_scatterplot.png'))
+create_hla_scatterplot(hartwig_freq, filename = paste0(date, '_supplementary_figure3b.png'))
 
 

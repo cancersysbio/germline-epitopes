@@ -15,7 +15,7 @@ if ((!exists("main_repo_path")) | main_repo_path == "") {
 
 date <- Sys.Date()
 ### CREATE IC BOXPLOT ##############################################################################
-create_ic_boxplot <- function(ic, icgenes, ylimits = NULL, yat = TRUE) {
+create_ic_boxplot <- function(ic, icgenes, ylimits = NULL, yat = TRUE, filename) {
      # create boxplots for each subtype 
         icdata <- as.data.frame(t(rna_tumor[which(rna_tumor$id %in% icgenes),-1]))
         colnames(icdata) <- rna_tumor$id[which(rna_tumor$id %in% icgenes)]
@@ -58,32 +58,17 @@ create_ic_boxplot <- function(ic, icgenes, ylimits = NULL, yat = TRUE) {
                 xaxis.fontface = 4,
                 col.rectangle = 'grey',
                 alpha.rectangle = 0.5,
-                filename = paste0(date, '_TCGA_', toupper(ic), '_genes_rna_boxplot.png'),
+                filename = filename,
                 resolution = 300
                 )   
 }
 
 ### MAIN ##########################################################################################
 # read in rna
-# file downloaded from https://gdc.cancer.gov/about-data/publications/pancanatlas 
-rnafile <- file.path('data', 'auxiliary_data', 'EBPlusPlusAdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.tsv')
-if (!file.exists(rnafile)) {
-  stop("Error: Please download tcga rna file from https://gdc.cancer.gov/about-data/publications/pancanatlas and put in auxiliary_data folder")
-}
-rna <- read.delim(
-        rnafile,
-        as.is = TRUE
-        )
-rna_genes <- sapply(rna$gene_id, function(x) strsplit(x, '\\|')[[1]][1])
-tissues <- sapply(colnames(rna), function(x) strsplit(x, '\\.')[[1]][4])
-# remove normal tissue 
-normal <- which(tissues %in% c('11A','11B','11C'))
-rna_tumor <- rna[,-normal]
-colnames(rna_tumor) <- gsub('.', '-', colnames(rna_tumor), fixed = TRUE)
-rna_tumor$id <- rna_genes
+load(file.path(main_repo_path, 'data', 'auxiliary_data', 'tcga_rna_subset.RData'))
 
 # read in TCGA annotations
-load(file.path(main_repo_path, 'data', 'auxiliary_data', 'genefuAnnotations.RData'))
+load(file.path(main_repo_path, 'data', 'auxiliary_data', 'TCGA_genefuAnnotations.RData'))
 BRCA_annotation$donor <- substr(BRCA_annotation$ID, 1, 12)
 # keep only primary
 BRCA_annotation <- BRCA_annotation[order(BRCA_annotation$ID),]
@@ -102,11 +87,15 @@ ic2ne <- c('FGF4','CABP2','DEFB108B','OR2AT4')
 ic9ne <- c('CYP11B1','GML', 'CYP11B2')
 ic5ne <- c('HNF1B')
 
-
-create_ic_boxplot(ic = 'ic1', icgenes = ic1, ylimits = c(0,10000), yat = seq(0,10000,2000))
-create_ic_boxplot(ic = 'ic6', icgenes = ic6, ylimits = c(0,60000), yat = seq(0,60000,20000))
-create_ic_boxplot(ic = 'ic9', icgenes = ic9, ylimits = c(0,15000), yat = seq(0,15000,5000))
-create_ic_boxplot(ic = 'ic2', icgenes = ic2, ylimits = c(0,150000), yat = seq(0,150000,50000))
+# create boxplots for each subtype
+create_ic_boxplot(ic = 'ic1', icgenes = ic1, ylimits = c(0,10000), yat = seq(0,10000,2000),
+        filename = paste0(date, '_supplementary_figure1l.png'))
+create_ic_boxplot(ic = 'ic2', icgenes = ic2, ylimits = c(0,150000), yat = seq(0,150000,50000),
+        filename = paste0(date, '_supplementary_figure1m.png'))
+create_ic_boxplot(ic = 'ic6', icgenes = ic6, ylimits = c(0,60000), yat = seq(0,60000,20000),
+        filename = paste0(date, '_supplementary_figure1n.png'))
+create_ic_boxplot(ic = 'ic9', icgenes = ic9, ylimits = c(0,15000), yat = seq(0,15000,5000),
+        filename = paste0(date, '_supplementary_figure1o.png'))
 
 
 all_genes <- c(
@@ -131,13 +120,14 @@ for (i in 1:length(all_genes)) {
 }
 plot_data$index <- factor(plot_data$index)
 plot_data$rna <- as.numeric(plot_data$rna)
+plot_data$logrna <- log10(plot_data$rna+1)
 
 # create boxplot 
 create.boxplot(
-                log10(rna) ~ index,
+                logrna ~ index,
                 data = plot_data,
-                #ylimits = ylimits,
-                #yat = yat,
+                ylimits = c(-1,6.2),
+                yat = seq(-2,6,2),
                 xaxis.rot = 45,
                 xaxis.cex = 1.2,
                 xaxis.lab = all_genes,
@@ -156,13 +146,18 @@ create.boxplot(
                 col.rectangle = 'grey',
                 alpha.rectangle = 0.5,
                 xaxis.fontface = 4,
-                filename = paste0(date, '_all_genes_rna_boxplot.png'),
+                filename = paste0(date, '_supplementary_figure1u.png'),
                 width = 10,
                 height = 8,
                 resolution = 300
                 ) 
 
 ### CREATE SUPPLEMENTARY FIGURE 1W ################################################################
+# read in megatable 
+tcga <- read.delim(
+        file.path(main_repo_path, 'data', 'cohort_megatables', 'tcga_megatable.txt'),
+        as.is = TRUE
+        )
 # create plot_data
 plot_data <- rna_tumor[rna_tumor$id %in% c('FOXC1','MIA','MELK'),]
 rownames(plot_data) <- plot_data$id
@@ -193,6 +188,6 @@ create.boxplot(
         ylimits = c(0,6),
         yaxis.lab = c(expression(0), expression(10^2), expression(10^4), expression(10^6)),
         yaxis.cex = 1.3,
-        filename = paste0(date, '_genes_rna_tnbc_boxplot.png'),
+        filename = paste0(date, '_supplementary_figure1w.png'),
         resolution = 300
         )

@@ -64,7 +64,7 @@ create.scatterplot(
         data = tplot_data,
         horizontal = TRUE,
         xlimits = c(-2.5,2.5),
-        filename = paste0(date, '_TCGA_her2_definitions_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure1g.png'),
         xat = log(c(0.2,0.5, 1, 2, 5)),
         xaxis.lab = c('0.2','0.5', '1.0', '2.0', '5.0'),
         xlab.label = 'Odds Ratio',
