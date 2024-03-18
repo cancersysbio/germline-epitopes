@@ -22,6 +22,15 @@ correct: number of samples with hla where SNP6 and WES agree\
 total: number of samples with HLA called by WES\
 accuracy: accuracy defined as correct/total
 
+The following file provides proportion of HLA alleles estimated to have high "bindng promiscuity" according to Manczinger et al.\
+**file:** hla_promiscuity_proportions.txt
+#### Columns
+sample: sample id (METABRIC)\
+high: number of HLA alleles considered "highly promiscuous", i.e. a wide peptide repertoire breadth\
+notna: number of HLA alleles with binding repertoire measurements provided by Manczinger et al.\
+unique: number of unique HLA alleles\
+prompprop: proportion of HLA alleles considered "highly promiscuous", calculated as high/notna
+
 ### Allele specific amplification 
 The following files provide source data Supplementary Figure 2m&n.\
 **file:** erbb2_snp_read_depths.txt\
@@ -70,10 +79,21 @@ The following file provides source data for Figure 4f.\
 sample: sample\
 Myoep_cluster_fracECAD: fraction of ECAD in myoepithelial cluster as measurement of myoepithelial integrity
 
+### METABRIC IMC 
+The following file provides source data for Supplementary Figure 4l. Cell types frequencies from Ali et al.\
+**file:** metabric_imc_proportions.txt
+
+#### Columns
+sample: sample\
+celltype: cell type\
+frequency: number of cells corresponding to cell type\
+propotion: proportion of total cells corresponding to cell type
+
 ### References
 S. A. Shukla et al., Comprehensive analysis of cancer-associated somatic mutations in class I HLA genes. Nat Biotechnol 33, 1152–1158 (2015).\
-H. Zhang et al., Genome-wide association study identifies 32 novel breast cancer susceptibility loci from overall and subtype-specific analyses. Nat Genet 52, 572–581 (2020).
-
+H. Zhang et al., Genome-wide association study identifies 32 novel breast cancer susceptibility loci from overall and subtype-specific analyses. Nat Genet 52, 572–581 (2020).\
+M. Manczinger et al., Negative trade-off between neoantigen repertoire breadth and the specificity of HLA-I molecules shapes antitumor immunity. Nat Cancer 2, 950–961 (2021).\
+H. R. Ali et al., Imaging mass cytometry and multiplatform genomics define the phenogenomic landscape of breast cancer. Nat Cancer 1, 163–175 (2020).
 
 
 
