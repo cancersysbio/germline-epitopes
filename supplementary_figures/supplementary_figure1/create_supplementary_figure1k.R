@@ -4,7 +4,7 @@
 
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
-library(plyr)
+library(tidyr)
 
 main_repo_path <- ""
 if ((!exists("main_repo_path")) | main_repo_path == "") {

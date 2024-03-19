@@ -3,13 +3,10 @@
 
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
-library(argparse)
-library(plyr)
-library(vcfR)
-library(bedr)
+library(tidyr)
 
 # Set the main path for repo
-main_repo_path <- ""
+main_repo_path <- "/Users/khoulaha/git/germline-epitopes"
 if ((!exists("main_repo_path")) | main_repo_path == "") {
   stop("Error: Path for main repo not set. Please set main_repo_path <- '/path/to/repo/germline-epitopes' and try again.")
 }

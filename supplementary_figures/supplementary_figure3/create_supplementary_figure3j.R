@@ -4,7 +4,7 @@
 
 ### PREAMBLE ######################################################################################
 library(BoutrosLab.plotting.general)
-library(plyr)
+library(tidyr)
 
 # Set the main path for repo
 main_repo_path <- ""
