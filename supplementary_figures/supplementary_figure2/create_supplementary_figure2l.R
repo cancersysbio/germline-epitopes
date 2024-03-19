@@ -83,7 +83,7 @@ create.scatterplot(
         main.cex = 2,
         abline.v = 0,
         key = NULL,
-        filename = paste0(date, '_dcis_scatterplot.png'),
+        filename = paste0(date, '_supplementary_figure2l.png'),
         width = 8,
         height = 3,
         x.error.right = dcis_data_subtype$u95-dcis_data_subtype$coef,
