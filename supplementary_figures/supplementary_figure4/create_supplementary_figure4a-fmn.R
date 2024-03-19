@@ -140,17 +140,17 @@ create_immune_boxplot(dtf = tcga,
 	ylab.label = 'Macrophages M1-like', text.y = c(rep(0.23,2), rep(0.21, 2)),
 	filename = paste0(date, '_supplementary_figure4f.png'))
 
-# create mhc class I presentation
-create_immune_boxplot(dtf = tcga, 
-	feature = 'MHC1_21978456', ylimits = c(-2.5,1.7), yat = seq(-2,2,1), 
-	ylab.label = 'MHC Class I Presentation', text.y = c(rep(1.6,2), rep(1.3, 2)),
-	filename = paste0(date, '_supplementary_figure4m.png'))
-
 
 # create mhc class I presentation
 create_immune_boxplot(dtf = tcga, 
 	feature = 'APM1', ylimits = c(0.3,0.57), yat = seq(0.3,0.5,0.1), 
 	ylab.label = 'MHC Class I Presentation', text.y = c(rep(0.56,2), rep(0.54, 2)),
+	filename = paste0(date, '_supplementary_figure4m.png'))
+
+# create mhc class I presentation
+create_immune_boxplot(dtf = tcga, 
+	feature = 'MHC1_21978456', ylimits = c(-2.5,1.7), yat = seq(-2,2,1), 
+	ylab.label = 'MHC Class I Presentation', text.y = c(rep(1.6,2), rep(1.3, 2)),
 	filename = paste0(date, '_supplementary_figure4n.png'))
 
 

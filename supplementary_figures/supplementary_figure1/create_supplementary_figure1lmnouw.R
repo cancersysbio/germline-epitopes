@@ -134,7 +134,7 @@ create.boxplot(
                 add.text = TRUE,
                 text.labels = c('IC1','IC2','IC9','HER2','Keratins'),
                 text.x = c(4.5,12.5,19.5,23.5,26.5),
-                text.y = rep(6, 5),
+                text.y = rep(6,5),
                 add.stripplot = TRUE,
                 ylab.label = expression('log'[10]*' mRNA abundance'),
                 xlab.label = 'Genes',

@@ -97,7 +97,7 @@ create_reads_barplot(
 	readsdf = erbb2_readsdf,
 	chr = 17, 
 	pos = 39727784,
-	filename = paste0(date, 'supplementary_figure2m.png'), 
+	filename = paste0(date, '_supplementary_figure2m.png'), 
 	thresholds = c(0.4, 0.6)
 	)
 
@@ -110,7 +110,7 @@ create_reads_barplot(
 	readsdf = tubd1_readsdf,
 	chr = 17, 
 	pos = 59886176, 
-	filename = paste0(date, 'supplementary_figure2n.png'),
+	filename = paste0(date, '_supplementary_figure2n.png'),
 	thresholds = c(0.4, 0.6)
 	)
 
