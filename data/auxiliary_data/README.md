@@ -3,6 +3,7 @@ This directory includes source data for auxillary analyses as detailed below.
 
 ### HLA alleles
 The following file provides HLA alleles for TCGA (discovery) cohort as provided by Shulka et al.\
+Please download from Shulka et al. (Supplementary Table 11) \
 **file:** Shukla_Wu_Getz_Polysolver_HLA_Types_2015.tsv
 
 The following file provides HLA alleles for ICGC (replication) cohort.\
